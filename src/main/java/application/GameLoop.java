@@ -1,23 +1,28 @@
 package application;
 
+import GUI.GUI;
 import entities.Player.Player;
+import entities.Room.Room;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 public class GameLoop extends AnimationTimer {
     private static final double TARGET_FPS = 60.0;
-    private static final double NANOSECONDS_PER_FRAME = 1_000_000_000.0 / TARGET_FPS;
     private final GraphicsContext graphicsContext;
     private final Scene scene;
     private long lastTime = 0;
     private Player player;
+    private Room currentRoom;
+    private GUI gui;
 
     public GameLoop(GraphicsContext graphicsContext, Scene scene) {
         this.graphicsContext = graphicsContext;
         this.scene = scene;
-        this.player = new Player(10, 10);
+
+        this.player = new Player(200, 200);
+        this.currentRoom = new Room();
+        this.gui = new GUI();
 
         this.init();
     }
@@ -44,13 +49,12 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void update() {
-        this.player.update();
+        this.player.update(this.currentRoom.getEntities());
     }
 
     private void render(double deltaTime) {
-        this.graphicsContext.setFill(Color.WHITE);
-        this.graphicsContext.fillRect(0, 0, GameApplication.WINDOW_WIDTH, GameApplication.WINDOW_HEIGHT);
-        this.graphicsContext.setFill(Color.BLACK);
+        this.currentRoom.render(this.graphicsContext, deltaTime);
         this.player.render(this.graphicsContext, deltaTime);
+        this.gui.render(this.graphicsContext, deltaTime, this.player);
     }
 }
