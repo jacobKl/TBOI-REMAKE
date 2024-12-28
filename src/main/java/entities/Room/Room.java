@@ -2,26 +2,28 @@ package entities.Room;
 
 import application.GameApplication;
 import entities.Entity;
+import entities.Room.Textures.BombTexture;
 import entities.Room.Textures.RockTexture;
 import entities.Room.Textures.SpikesTexture;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+
 public class Room {
     private Image roomBackground;
 
-    private Entity[] entities;
+    private ArrayList<Entity> entities;
 
     public Room() {
         this.roomBackground = new Image(getClass().getResource("/basement.png").toExternalForm());
-        this.entities = new Entity[3];
+        this.entities = new ArrayList<>();
 
-        RockTexture rockTexture = new RockTexture();
-        SpikesTexture spikesTexture = new SpikesTexture();
+        PickupFactory pickupFactory = new PickupFactory();
 
-        this.entities[0] = new Rock(350, 350, rockTexture);
-        this.entities[1] = new Rock(160, 160, rockTexture);
-        this.entities[2] = new Spikes(350, 120, spikesTexture);
+        this.entities.add(pickupFactory.createEntity("bomb", 100, 100));
+        this.entities.add(pickupFactory.createEntity("coin", 400, 200));
+        this.entities.add(pickupFactory.createEntity("key", 400, 120));
     }
 
     public void render(GraphicsContext gc, double deltaTime) {
@@ -32,7 +34,7 @@ public class Room {
         }
     }
 
-    public Entity[] getEntities() {
+    public ArrayList<Entity> getEntities() {
         return this.entities;
     }
 }
