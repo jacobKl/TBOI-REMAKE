@@ -16,4 +16,14 @@ public class PlayerInventory {
     public Integer getMoney() {
         return this.money;
     }
+
+    public void addBombs(Integer number) {
+        this.bombs += number;
+    }
+
+    public void addCoins(Integer number) {
+        this.money += number;
+    }
+
+    public void addKeys(Integer number) { this.keys += number; }
 }

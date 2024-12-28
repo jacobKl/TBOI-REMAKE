@@ -5,9 +5,13 @@ import entities.Player.PlayerInventory;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
+import java.io.InputStream;
 
 public class GUI {
     private Image heartImage, emptyHeartImage, keyImage, bombImage, moneyImage;
+    private Font font;
 
     public GUI() {
         this.heartImage = new Image(getClass().getResource("/full_heart.png").toExternalForm());
@@ -15,6 +19,8 @@ public class GUI {
         this.keyImage = new Image(getClass().getResource("/pickup_key.png").toExternalForm());
         this.bombImage = new Image(getClass().getResource("/pickup_bomb.png").toExternalForm());
         this.moneyImage = new Image(getClass().getResource("/pickup_coin.png").toExternalForm());
+
+       this.font = Font.loadFont(getClass().getResourceAsStream("/fonts/upheavtt.ttf"), 16);
     }
 
     public void render(GraphicsContext gc, double deltaTime, Player player) {
@@ -38,11 +44,10 @@ public class GUI {
     }
 
     private void renderRow(GraphicsContext gc, Integer index, Image image, Integer amount) {
-        gc.drawImage(image, 10, 100 + index * 40, 20, 20);
-
+        gc.drawImage(image, 20, 60 + index * 25, 20,20);
         gc.setFill(Color.WHITE);
-        gc.setFont(new javafx.scene.text.Font("Arial", 24));
+        gc.setFont(this.font);
 
-        gc.fillText(String.valueOf(amount), 25, 100 + index * 40);
+        gc.fillText(String.format("%02" + "d", amount), 50, 75 + index * 25);
     }
 }

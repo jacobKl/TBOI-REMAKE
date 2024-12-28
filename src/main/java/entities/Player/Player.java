@@ -2,10 +2,13 @@ package entities.Player;
 
 import application.GameApplication;
 import entities.Entity;
+import entities.PickupEntity;
 import entities.SpritesheetPart;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+
+import java.util.ArrayList;
 
 public class Player extends Entity {
     private PlayerActivity playerActivity = new PlayerActivity();
@@ -33,7 +36,7 @@ public class Player extends Entity {
         }
     }
 
-    public void update(Entity[] entities) {
+    public void update(ArrayList<Entity> entities) {
         double dx = this.x;
         double dy = this.y;
 
@@ -53,6 +56,10 @@ public class Player extends Entity {
                 if (entity.isCollidable())
                     obstacleCollision = true;
                 entity.contactWithPlayer(this);
+
+                if (entity instanceof PickupEntity) {
+                    entities.remove(entity);
+                }
             }
         }
 
