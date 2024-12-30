@@ -3,7 +3,7 @@ package entities.Player;
 public class PlayerAttributes {
     private double speed = 3;
     private double maxHealth = 3;
-    private double currentHealth = 2;
+    private double currentHealth = 3;
 
     public double getSpeed() {
         return this.speed;

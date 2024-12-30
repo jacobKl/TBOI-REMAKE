@@ -1,23 +1,25 @@
 package entities;
 
+import application.Vector2D;
 import entities.Player.Player;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Entity implements EntityInterface {
-    protected double x, y, width, height;
+    protected double width, height;
+
+    private Vector2D position;
     protected boolean collidable = true;
 
     public Entity(double x, double y, double width, double height) {
-        this.x = x;
-        this.y = y;
+        this.position = new Vector2D(x, y);
         this.width = width;
         this.height = height;
     }
 
-    public double getX() { return x; }
-    public double getY() { return y; }
+    public double getX() { return this.position.getX(); }
+    public double getY() { return this.position.getY(); }
     public double getWidth() { return width; }
     public double getHeight() { return height; }
 
@@ -27,7 +29,7 @@ public class Entity implements EntityInterface {
 
     public Bounds getBounds() {
 
-        return new BoundingBox(this.x, this.y, this.width, this.height);
+        return new BoundingBox(this.position.getX(), this.position.getY(), this.width, this.height);
     }
 
     public boolean intersects(Entity other) {
@@ -39,4 +41,23 @@ public class Entity implements EntityInterface {
 
     @Override
     public void contactWithPlayer(Player player) {}
+
+    public Vector2D getPosition() {
+        return this.position;
+    }
+
+    public void setX(double x) {
+        this.position.setX(x);
+    }
+
+    public void setY(double y) {
+        this.position.setY(y);
+    }
+
+    public Vector2D getEntityCenter() {
+        double startX = this.getPosition().getX() + this.width / 2;
+        double startY = this.getPosition().getY() + this.height / 2;
+
+        return new Vector2D(startX, startY);
+    }
 }

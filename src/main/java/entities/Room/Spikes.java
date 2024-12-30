@@ -15,7 +15,7 @@ public class Spikes extends Entity {
     }
 
     public void render(GraphicsContext gc, double deltaTime) {
-        gc.drawImage(this.spikesTexture.get(), this.x, this.y, this.width, this.height);
+        gc.drawImage(this.spikesTexture.get(), this.getPosition().getX(), this.getPosition().getY(), this.width, this.height);
     }
 
     public void contactWithPlayer(Player player) {

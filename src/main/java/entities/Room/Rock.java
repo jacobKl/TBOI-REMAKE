@@ -12,6 +12,6 @@ public class Rock extends Entity {
     }
 
     public void render(GraphicsContext gc, double deltaTime) {
-        gc.drawImage(this.rockTexture.get(), this.x, this.y, this.width, this.height);
+        gc.drawImage(this.rockTexture.get(), this.getPosition().getX(), this.getPosition().getY(), this.width, this.height);
     }
 }

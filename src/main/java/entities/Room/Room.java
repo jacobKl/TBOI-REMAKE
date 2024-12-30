@@ -2,9 +2,7 @@ package entities.Room;
 
 import application.GameApplication;
 import entities.Entity;
-import entities.Room.Textures.BombTexture;
-import entities.Room.Textures.RockTexture;
-import entities.Room.Textures.SpikesTexture;
+import entities.Projectile;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -12,12 +10,10 @@ import java.util.ArrayList;
 
 public class Room {
     private Image roomBackground;
-
-    private ArrayList<Entity> entities;
+    private ArrayList<Entity> entities = new ArrayList<>();
 
     public Room() {
         this.roomBackground = new Image(getClass().getResource("/basement.png").toExternalForm());
-        this.entities = new ArrayList<>();
 
         PickupFactory pickupFactory = new PickupFactory();
 
@@ -36,5 +32,14 @@ public class Room {
 
     public ArrayList<Entity> getEntities() {
         return this.entities;
+    }
+
+    public static boolean isWithinBounds(Entity position) {
+        if (position.getX() <= 80) return false;
+        if (position.getY() <= 80) return false;
+        if (position.getX() + position.getWidth() > GameApplication.WINDOW_WIDTH - 80) return false;
+        if (position.getY() + position.getHeight() > GameApplication.WINDOW_HEIGHT - 80) return false;
+
+        return true;
     }
 }

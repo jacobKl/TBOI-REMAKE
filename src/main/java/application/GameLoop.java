@@ -2,10 +2,13 @@ package application;
 
 import GUI.GUI;
 import entities.Player.Player;
+import entities.Projectile;
 import entities.Room.Room;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+
+import java.util.ArrayList;
 
 public class GameLoop extends AnimationTimer {
     private static final double TARGET_FPS = 60.0;
@@ -16,11 +19,13 @@ public class GameLoop extends AnimationTimer {
     private Room currentRoom;
     private GUI gui;
 
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
+
     public GameLoop(GraphicsContext graphicsContext, Scene scene) {
         this.graphicsContext = graphicsContext;
         this.scene = scene;
 
-        this.player = new Player(200, 200);
+        this.player = new Player(200, 200, this.projectiles);
         this.currentRoom = new Room();
         this.gui = new GUI();
 
@@ -41,20 +46,31 @@ public class GameLoop extends AnimationTimer {
 
         double deltaTime = (now - lastTime) / 1_000_000_000.0;
 
-        this.update();
+        this.update(deltaTime);
 
         this.render(deltaTime);
 
         lastTime = now;
     }
 
-    private void update() {
-        this.player.update(this.currentRoom.getEntities());
+    private void update(double deltaTime) {
+        this.player.update(this.currentRoom.getEntities(), deltaTime);
+
+        for (Projectile projectile : this.projectiles) {
+            projectile.update(deltaTime);
+        }
     }
 
     private void render(double deltaTime) {
         this.currentRoom.render(this.graphicsContext, deltaTime);
         this.player.render(this.graphicsContext, deltaTime);
         this.gui.render(this.graphicsContext, deltaTime, this.player);
+
+        for (Projectile projectile : this.projectiles) {
+            if (Room.isWithinBounds(projectile))
+                projectile.render(this.graphicsContext);
+            else
+                this.projectiles.remove(projectile);
+        }
     }
 }

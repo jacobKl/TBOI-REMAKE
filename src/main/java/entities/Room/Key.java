@@ -16,7 +16,7 @@ public class Key extends Entity implements PickupEntity {
     }
 
     public void render(GraphicsContext gc, double deltaTime) {
-        gc.drawImage(this.keyTexture.get(), this.x, this.y, this.width, this.height);
+        gc.drawImage(this.keyTexture.get(), this.getPosition().getX(), this.getPosition().getY(), this.width, this.height);
     }
 
     public void contactWithPlayer(Player player) {
