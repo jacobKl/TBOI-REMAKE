@@ -1,5 +1,6 @@
-package entities.Room;
+package entities.Room.Pickups;
 
+import application.AudioManager;
 import entities.Entity;
 import entities.PickupEntity;
 import entities.Player.Player;
@@ -9,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class Coin extends Entity implements PickupEntity {
     private CoinTexture coinTexture;
     public Coin(double x, double y, CoinTexture texture) {
-        super(x, y, 40, 40);
+        super(x, y, 30, 30);
         this.coinTexture = texture;
 
         this.collidable = false;
@@ -20,6 +21,9 @@ public class Coin extends Entity implements PickupEntity {
     }
 
     public void contactWithPlayer(Player player) {
+        AudioManager am = AudioManager.getInstance();
         player.getPlayerInventory().addCoins(1);
+
+        this.audioManager.playSound("gold_pickup.wav");
     }
 }

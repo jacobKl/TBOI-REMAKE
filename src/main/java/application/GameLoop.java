@@ -1,8 +1,10 @@
 package application;
 
 import GUI.GUI;
+import entities.Entity;
 import entities.Player.Player;
 import entities.Projectile;
+import entities.Room.Enemies.Enemy;
 import entities.Room.Room;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -26,7 +28,7 @@ public class GameLoop extends AnimationTimer {
         this.scene = scene;
 
         this.player = new Player(200, 200, this.projectiles);
-        this.currentRoom = new Room();
+        this.currentRoom = new Room(this.player);
         this.gui = new GUI();
 
         this.init();
@@ -55,9 +57,21 @@ public class GameLoop extends AnimationTimer {
 
     private void update(double deltaTime) {
         this.player.update(this.currentRoom.getEntities(), deltaTime);
+        this.currentRoom.update(deltaTime);
 
         for (Projectile projectile : this.projectiles) {
             projectile.update(deltaTime);
+
+            for (Entity entity : this.currentRoom.getEntities()) {
+                if (entity instanceof Enemy && projectile.intersects(entity)) {
+                    this.projectiles.remove(projectile);
+                    boolean killed = ((Enemy) entity).receiveDamage(this.player.getPlayerAttributes().getDamage());
+
+                    if (killed) {
+                        this.currentRoom.removeEntity(entity);
+                    }
+                }
+            }
         }
     }
 

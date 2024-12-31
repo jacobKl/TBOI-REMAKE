@@ -6,7 +6,7 @@ import application.VectorUtils;
 public class PlayerActivity {
     public boolean up, down, left, right = false;
     public boolean shootingUp, shootingDown, shootingLeft, shootingRight = false;
-    public double tearDelay = 0;
+    public double tearDelay = 0, immuneDelay = 0;
 
     public boolean isWalking() {
         return this.up || this.down || this.left|| this.right;
@@ -16,12 +16,31 @@ public class PlayerActivity {
         return this.shootingUp || this.shootingDown || this.shootingLeft|| this.shootingRight;
     }
 
-    public boolean canShoot(double deltaTime) {
+    public void setTearDelay(double tearDelay) {
+        this.tearDelay = tearDelay;
+    }
+
+    public void setImmuneDelay(double immuneDelay) {
+        this.immuneDelay = immuneDelay;
+    }
+
+    public void update(double deltaTime) {
+        this.tearDelay -= deltaTime;
+        this.immuneDelay -= deltaTime;
+    }
+
+    public boolean canShoot() {
         if (this.tearDelay <= 0) {
-            this.tearDelay = .5;
             return true;
         } else {
-            this.tearDelay -= deltaTime;
+            return false;
+        }
+    }
+
+    public boolean canBeHurt() {
+        if (this.immuneDelay <= 0) {
+            return true;
+        } else {
             return false;
         }
     }

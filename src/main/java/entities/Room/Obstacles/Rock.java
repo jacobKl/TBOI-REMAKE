@@ -1,4 +1,4 @@
-package entities.Room;
+package entities.Room.Obstacles;
 
 import entities.Entity;
 import entities.Room.Textures.RockTexture;

@@ -1,5 +1,6 @@
 package entities;
 
+import application.AudioManager;
 import application.Vector2D;
 import entities.Player.Player;
 import javafx.geometry.BoundingBox;
@@ -12,10 +13,13 @@ public class Entity implements EntityInterface {
     private Vector2D position;
     protected boolean collidable = true;
 
+    protected AudioManager audioManager;
+
     public Entity(double x, double y, double width, double height) {
         this.position = new Vector2D(x, y);
         this.width = width;
         this.height = height;
+        this.audioManager = AudioManager.getInstance();
     }
 
     public double getX() { return this.position.getX(); }

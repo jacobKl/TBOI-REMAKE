@@ -1,5 +1,6 @@
-package entities.Room;
+package entities.Room.Pickups;
 
+import application.AudioManager;
 import entities.Entity;
 import entities.PickupEntity;
 import entities.Player.Player;
@@ -20,6 +21,9 @@ public class Key extends Entity implements PickupEntity {
     }
 
     public void contactWithPlayer(Player player) {
+        AudioManager am = AudioManager.getInstance();
         player.getPlayerInventory().addKeys(1);
+
+        this.audioManager.playSound("key_pickup.mp3");
     }
 }

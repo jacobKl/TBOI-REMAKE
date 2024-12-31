@@ -13,18 +13,19 @@ public class Projectile extends Entity {
     private boolean perpendicular;
     private Image projectileImage;
 
-    public Projectile(double startX, double startY, Vector2D walkingVector, Vector2D shootingVector, boolean perpendicular) {
+    public Projectile(double startX, double startY, Vector2D walkingVector, Vector2D shootingVector, boolean perpendicular, Image texture) {
         super(startX, startY, 20, 20);
         this.walkingVector = walkingVector;
         this.shootingVector = shootingVector;
         this.perpendicular = perpendicular;
+        this.collidable = false;
 
         if (this.perpendicular) {
             this.shootingVector.setX(this.shootingVector.getX() + this.walkingVector.getX() * Projectile.CURVE_FACTOR);
             this.shootingVector.setY(this.shootingVector.getY() + this.walkingVector.getY() * Projectile.CURVE_FACTOR);
         }
 
-        this.projectileImage = new Image(getClass().getResource("/tear.png").toExternalForm());
+        this.projectileImage = texture;
     }
 
     public void update(double deltaTime) {

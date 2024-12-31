@@ -2,7 +2,11 @@ package entities.Room;
 
 import application.GameApplication;
 import entities.Entity;
-import entities.Projectile;
+import entities.Player.Player;
+import entities.Room.Enemies.Enemy;
+import entities.Room.Enemies.EnemyFactory;
+import entities.Room.Obstacles.ObstacleFactory;
+import entities.Room.Pickups.PickupFactory;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -11,15 +15,31 @@ import java.util.ArrayList;
 public class Room {
     private Image roomBackground;
     private ArrayList<Entity> entities = new ArrayList<>();
+    private Player player;
 
-    public Room() {
-        this.roomBackground = new Image(getClass().getResource("/basement.png").toExternalForm());
+    public Room(Player player) {
+        this.roomBackground = new Image(getClass().getResource("/basement.jpg").toExternalForm());
+        this.player = player;
 
         PickupFactory pickupFactory = new PickupFactory();
+        ObstacleFactory obstacleFactory = new ObstacleFactory();
+        EnemyFactory enemyFactory = new EnemyFactory();
 
         this.entities.add(pickupFactory.createEntity("bomb", 100, 100));
         this.entities.add(pickupFactory.createEntity("coin", 400, 200));
+        this.entities.add(pickupFactory.createEntity("coin", 450, 200));
+        this.entities.add(pickupFactory.createEntity("coin", 150, 200));
         this.entities.add(pickupFactory.createEntity("key", 400, 120));
+        this.entities.add(obstacleFactory.createEntity("spikes", 300, 300));
+        this.entities.add(enemyFactory.createEntity("fly", 217, 317));
+    }
+
+    public void update(double deltaTime) {
+        for (Entity entity : this.entities) {
+            if (entity instanceof Enemy) {
+                ((Enemy) entity).update(deltaTime, player);
+            }
+        }
     }
 
     public void render(GraphicsContext gc, double deltaTime) {
@@ -30,10 +50,6 @@ public class Room {
         }
     }
 
-    public ArrayList<Entity> getEntities() {
-        return this.entities;
-    }
-
     public static boolean isWithinBounds(Entity position) {
         if (position.getX() <= 80) return false;
         if (position.getY() <= 80) return false;
@@ -41,5 +57,13 @@ public class Room {
         if (position.getY() + position.getHeight() > GameApplication.WINDOW_HEIGHT - 80) return false;
 
         return true;
+    }
+
+    public ArrayList<Entity> getEntities() {
+        return this.entities;
+    }
+
+    public void removeEntity(Entity entity) {
+        this.entities.remove(entity);
     }
 }

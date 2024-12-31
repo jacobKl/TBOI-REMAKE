@@ -1,4 +1,4 @@
-package entities.Room;
+package entities.Room.Obstacles;
 
 import entities.Entity;
 import entities.Player.Player;
@@ -19,6 +19,6 @@ public class Spikes extends Entity {
     }
 
     public void contactWithPlayer(Player player) {
-        player.recieveDamage(1);
+        player.receiveDamage(1);
     }
 }

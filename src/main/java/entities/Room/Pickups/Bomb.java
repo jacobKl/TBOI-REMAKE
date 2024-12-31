@@ -1,5 +1,6 @@
-package entities.Room;
+package entities.Room.Pickups;
 
+import application.AudioManager;
 import entities.Entity;
 import entities.PickupEntity;
 import entities.Player.Player;
@@ -21,5 +22,7 @@ public class Bomb extends Entity implements PickupEntity {
 
     public void contactWithPlayer(Player player) {
         player.getPlayerInventory().addBombs(1);
+
+        this.audioManager.playSound("bomb_pickup.mp3");
     }
 }

@@ -1,19 +1,13 @@
-package entities.Room;
+package entities.Room.Pickups;
 
 import entities.Entity;
 import entities.Room.Textures.*;
 
 public class PickupFactory {
-    private RockTexture rockTexture;
-    private SpikesTexture spikesTexture;
     private BombTexture bombTexture;
-
     private CoinTexture coinTexture;
-
     private KeyTexture keyTexture;
     public PickupFactory() {
-        this.rockTexture = new RockTexture();
-        this.spikesTexture = new SpikesTexture();
         this.bombTexture = new BombTexture();
         this.coinTexture = new CoinTexture();
         this.keyTexture = new KeyTexture();

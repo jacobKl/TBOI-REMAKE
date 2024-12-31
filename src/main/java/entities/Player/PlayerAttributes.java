@@ -5,6 +5,8 @@ public class PlayerAttributes {
     private double maxHealth = 3;
     private double currentHealth = 3;
 
+    private double damage = 3;
+
     public double getSpeed() {
         return this.speed;
     }
@@ -15,6 +17,10 @@ public class PlayerAttributes {
 
     public double getCurrentHealth() {
         return this.currentHealth;
+    }
+
+    public double getDamage() {
+        return this.damage;
     }
 
     public void recieveDamage(double number) {
