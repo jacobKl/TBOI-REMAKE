@@ -16,22 +16,17 @@ public abstract class Enemy extends Entity {
         this.health = health;
     }
 
-    abstract public void update(double deltaTime, Player player);
-
     protected double getGoToPlayerAngle(Player player) {
         Vector2D playerPosition = player.getPosition();
 
-        double angle = Math.atan2(playerPosition.getX() - this.getX(), playerPosition.getY() - this.getY());
-
-        return angle;
+        return Math.atan2(playerPosition.getX() - this.getX(), playerPosition.getY() - this.getY());
     }
 
     public boolean receiveDamage(double amount) {
         this.health -= amount;
 
-        if (this.health < 0) {
+        if (this.health < 0)
             return true;
-        }
 
         return false;
     }

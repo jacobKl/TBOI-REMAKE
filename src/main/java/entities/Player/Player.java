@@ -11,7 +11,6 @@ import entities.SpritesheetPart;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-
 import java.util.ArrayList;
 
 public class Player extends Entity {
@@ -48,7 +47,6 @@ public class Player extends Entity {
 
     public void update(ArrayList<Entity> entities, double deltaTime) {
         Vector2D movementVector = this.getMovementVelocity(this.getPosition().getX(), this.getPosition().getY());
-
         Entity futurePosition = new Entity(movementVector.getX() + 15, movementVector.getY() + 30, this.width - 30, this.height - 30);
 
         boolean obstacleCollision = false;
@@ -66,7 +64,6 @@ public class Player extends Entity {
             }
         }
 
-
         boolean moveWithinBounds = Room.isWithinBounds(futurePosition);
 
         if (!obstacleCollision && moveWithinBounds) {
@@ -79,7 +76,6 @@ public class Player extends Entity {
         if (this.playerActivity.isShooting() && this.playerActivity.canShoot()) {
             this.shoot();
         }
-
     }
 
     public void render(GraphicsContext gc, double deltaTime) {
@@ -110,20 +106,20 @@ public class Player extends Entity {
     }
 
     public void shoot() {
-        if (this.playerActivity.canShoot()) {
-            Vector2D shootingVector = this.playerActivity.getShootingVector();
-            Vector2D walkingVector = this.playerActivity.getWalkingVector();
+        if (!this.playerActivity.canShoot())
+            return;
+        Vector2D shootingVector = this.playerActivity.getShootingVector();
+        Vector2D walkingVector = this.playerActivity.getWalkingVector();
 
-            Vector2D entityCenter = this.getEntityCenter();
+        Vector2D entityCenter = this.getEntityCenter();
 
-            boolean isPerpendicular = (VectorUtils.scalar(shootingVector, walkingVector) == 0 && this.playerActivity.isWalking()) ? true : false;
+        boolean isPerpendicular = (VectorUtils.scalar(shootingVector, walkingVector) == 0 && this.playerActivity.isWalking()) ? true : false;
 
-            Projectile projectile = new Projectile(entityCenter.getX(), entityCenter.getY(), walkingVector, shootingVector, isPerpendicular, this.tearTexture.get());
+        Projectile projectile = new Projectile(entityCenter.getX(), entityCenter.getY(), walkingVector, shootingVector, isPerpendicular, this.tearTexture.get());
 
-            this.projectiles.add(projectile);
-            this.audioManager.playSound("attack.wav");
-            this.playerActivity.setTearDelay(.5);
-        }
+        this.projectiles.add(projectile);
+        this.audioManager.playSound("attack.wav");
+        this.playerActivity.setTearDelay(.5);
     }
 
     public Vector2D getMovementVelocity(double dx, double dy) {

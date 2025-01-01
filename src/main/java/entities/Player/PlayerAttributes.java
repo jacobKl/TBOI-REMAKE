@@ -4,7 +4,6 @@ public class PlayerAttributes {
     private double speed = 3;
     private double maxHealth = 3;
     private double currentHealth = 3;
-
     private double damage = 3;
 
     public double getSpeed() {

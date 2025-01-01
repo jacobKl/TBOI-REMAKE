@@ -9,10 +9,8 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Entity implements EntityInterface {
     protected double width, height;
-
     private Vector2D position;
     protected boolean collidable = true;
-
     protected AudioManager audioManager;
 
     public Entity(double x, double y, double width, double height) {
@@ -32,7 +30,6 @@ public class Entity implements EntityInterface {
     }
 
     public Bounds getBounds() {
-
         return new BoundingBox(this.position.getX(), this.position.getY(), this.width, this.height);
     }
 
@@ -63,5 +60,9 @@ public class Entity implements EntityInterface {
         double startY = this.getPosition().getY() + this.height / 2;
 
         return new Vector2D(startX, startY);
+    }
+
+    public void update(double deltaTime, Player player) {
+
     }
 }

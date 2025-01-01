@@ -14,12 +14,13 @@ import java.util.ArrayList;
 
 public class Room {
     private Image roomBackground;
-    private ArrayList<Entity> entities = new ArrayList<>();
     private Player player;
+    private ArrayList<Entity> entities;
 
-    public Room(Player player) {
+    public Room(Player player, ArrayList<Entity> entities) {
         this.roomBackground = new Image(getClass().getResource("/basement.jpg").toExternalForm());
         this.player = player;
+        this.entities = entities;
 
         PickupFactory pickupFactory = new PickupFactory();
         ObstacleFactory obstacleFactory = new ObstacleFactory();
@@ -32,14 +33,6 @@ public class Room {
         this.entities.add(pickupFactory.createEntity("key", 400, 120));
         this.entities.add(obstacleFactory.createEntity("spikes", 300, 300));
         this.entities.add(enemyFactory.createEntity("fly", 217, 317));
-    }
-
-    public void update(double deltaTime) {
-        for (Entity entity : this.entities) {
-            if (entity instanceof Enemy) {
-                ((Enemy) entity).update(deltaTime, player);
-            }
-        }
     }
 
     public void render(GraphicsContext gc, double deltaTime) {
@@ -57,13 +50,5 @@ public class Room {
         if (position.getY() + position.getHeight() > GameApplication.WINDOW_HEIGHT - 80) return false;
 
         return true;
-    }
-
-    public ArrayList<Entity> getEntities() {
-        return this.entities;
-    }
-
-    public void removeEntity(Entity entity) {
-        this.entities.remove(entity);
     }
 }

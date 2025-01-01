@@ -20,10 +20,6 @@ public class Vector2D {
         return this;
     }
 
-    public Vector2D copy() {
-        return new Vector2D(this.x, this.y);
-    }
-
     public Vector2D normalize() {
         double length = (double) Math.sqrt(x * x + y * y);
         if (length != 0) {

@@ -20,14 +20,19 @@ public class GameApplication extends Application {
     public void start(Stage primaryStage) {
         Canvas canvas = new Canvas(GameApplication.WINDOW_WIDTH, GameApplication.WINDOW_HEIGHT);
 
+        Scene scene = this.setupScene(primaryStage, canvas);
+
+        GameLoop gameLoop = new GameLoop(canvas.getGraphicsContext2D(), scene);
+        gameLoop.start();
+    }
+
+    private Scene setupScene(Stage primaryStage, Canvas canvas) {
         StackPane root = new StackPane(canvas);
         Scene scene = new Scene(root, Color.BLACK);
         primaryStage.setTitle(GameApplication.WINDOW_NAME);
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        GameLoop gameLoop = new GameLoop(canvas.getGraphicsContext2D(), scene);
-
-        gameLoop.start();
+        return scene;
     }
 }
