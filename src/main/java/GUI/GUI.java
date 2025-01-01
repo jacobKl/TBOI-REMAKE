@@ -20,7 +20,7 @@ public class GUI {
         this.bombImage = new Image(getClass().getResource("/pickup_bomb.png").toExternalForm());
         this.moneyImage = new Image(getClass().getResource("/pickup_coin.png").toExternalForm());
 
-       this.font = Font.loadFont(getClass().getResourceAsStream("/fonts/upheavtt.ttf"), 16);
+       this.font = Font.loadFont(getClass().getResourceAsStream("/fonts/upheavtt.ttf"), 24);
     }
 
     public void render(GraphicsContext gc, double deltaTime, Player player) {
@@ -36,18 +36,18 @@ public class GUI {
     private void renderHearts(GraphicsContext gc, Player player) {
         for (int i = 0; i < player.getPlayerAttributes().getMaxHealth(); i++) {
             if (i + 1 <= player.getPlayerAttributes().getCurrentHealth()) {
-                gc.drawImage(this.heartImage, 70 + i * 30, 10, 30, 30);
+                gc.drawImage(this.heartImage, 70 + i * 50, 10, 50, 50);
             } else {
-                gc.drawImage(this.emptyHeartImage, 70 + i * 30, 10, 30, 30);
+                gc.drawImage(this.emptyHeartImage, 70 + i * 50, 10, 50, 50);
             }
         }
     }
 
     private void renderRow(GraphicsContext gc, Integer index, Image image, Integer amount) {
-        gc.drawImage(image, 20, 60 + index * 25, 20,20);
+        gc.drawImage(image, 20, 60 + index * 50, 40,40);
         gc.setFill(Color.WHITE);
         gc.setFont(this.font);
 
-        gc.fillText(String.format("%02" + "d", amount), 50, 75 + index * 25);
+        gc.fillText(String.format("%02" + "d", amount), 70, 85 + index * 50);
     }
 }

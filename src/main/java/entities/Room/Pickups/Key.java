@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class Key extends Entity implements PickupEntity {
     private KeyTexture keyTexture;
     public Key(double x, double y, KeyTexture texture) {
-        super(x, y, 40, 40);
+        super(x, y, 60, 60);
         this.keyTexture = texture;
 
         this.collidable = false;

@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class Bomb extends Entity implements PickupEntity {
     private BombTexture bombTexture;
     public Bomb(double x, double y, BombTexture texture) {
-        super(x, y, 40, 40);
+        super(x, y, 60, 60);
         this.bombTexture = texture;
 
         this.collidable = false;

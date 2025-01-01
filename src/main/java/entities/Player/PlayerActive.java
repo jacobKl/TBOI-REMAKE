@@ -24,12 +24,12 @@ public class PlayerActive implements PlayerState {
 
         this.setSheets();
 
-        parts[1] = new SpritesheetPart((this.headColumn + this.headFrame) * 32, 0, 32, 32, x, y - 30, 64, 64);
+        parts[1] = new SpritesheetPart((this.headColumn + this.headFrame) * 32, 0, 32, 32, x, y - 45, 90, 90);
 
         if (this.verticalFlip) {
-            parts[0] = new SpritesheetPart(this.bodyFrame * 32, this.bodyRow * 32, 32, 32, x + 64, y, -64, 64);
+            parts[0] = new SpritesheetPart(this.bodyFrame * 32, this.bodyRow * 32, 32, 32, x + 90, y, -90, 90);
         } else {
-            parts[0] = new SpritesheetPart(this.bodyFrame * 32, this.bodyRow * 32, 32, 32, x, y, 64, 64);
+            parts[0] = new SpritesheetPart(this.bodyFrame * 32, this.bodyRow * 32, 32, 32, x, y, 90, 90);
         }
 
         return parts;

@@ -1,9 +1,12 @@
 package entities.Room.Enemies;
 
 import application.Vector2D;
+import entities.Entity;
 import entities.Player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+
+import java.util.ArrayList;
 
 public class Fly extends Enemy {
     private Integer column = 0;
@@ -19,7 +22,7 @@ public class Fly extends Enemy {
         gc.drawImage(this.spritesheet, this.column * 32, 0, 32, 32, this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
 
-    public void update(double deltaTime, Player player) {
+    public void update(double deltaTime, Player player, ArrayList<Entity> entities) {
         this.clock -= deltaTime;
 
         if (this.clock < 0) {
@@ -34,5 +37,9 @@ public class Fly extends Enemy {
 
         this.setX(this.getX() + Math.sin(angle) * speed);
         this.setY(this.getY() + Math.cos(angle) * speed);
+    }
+
+    public void contactWithPlayer(Player player) {
+        player.receiveDamage(1);
     }
 }

@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class Rock extends Entity {
     private RockTexture rockTexture;
     public Rock(double x, double y, RockTexture texture) {
-        super(x, y, 50, 50);
+        super(x, y, 70, 70);
         this.rockTexture = texture;
     }
 

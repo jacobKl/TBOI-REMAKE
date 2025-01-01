@@ -7,6 +7,8 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.ArrayList;
+
 public class Entity implements EntityInterface {
     protected double width, height;
     private Vector2D position;
@@ -62,7 +64,7 @@ public class Entity implements EntityInterface {
         return new Vector2D(startX, startY);
     }
 
-    public void update(double deltaTime, Player player) {
+    public void update(double deltaTime, Player player, ArrayList<Entity> entities) {
 
     }
 }

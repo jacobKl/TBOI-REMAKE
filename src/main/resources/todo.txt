@@ -1,0 +1,6 @@
+TODO:
+- Implements walking between rooms
+- Implement bomb placing
+- Implement chests
+- Implement pedestals
+- Implement boss bar

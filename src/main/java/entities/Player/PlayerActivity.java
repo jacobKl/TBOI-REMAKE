@@ -5,7 +5,7 @@ import application.VectorUtils;
 
 public class PlayerActivity {
     public boolean up, down, left, right = false;
-    public boolean shootingUp, shootingDown, shootingLeft, shootingRight = false;
+    public boolean shootingUp, shootingDown, shootingLeft, shootingRight, placingBomb = false;
     public double tearDelay = 0, immuneDelay = 0;
 
     public boolean isWalking() {

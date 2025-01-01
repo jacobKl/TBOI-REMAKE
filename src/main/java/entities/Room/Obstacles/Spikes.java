@@ -8,7 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class Spikes extends Entity {
     private SpikesTexture spikesTexture;
     public Spikes(double x, double y, SpikesTexture texture) {
-        super(x, y, 50, 50);
+        super(x, y, 70, 70);
         this.spikesTexture = texture;
 
         this.collidable = false;

@@ -6,6 +6,10 @@ public class PlayerAttributes {
     private double currentHealth = 3;
     private double damage = 3;
 
+    public void update() {
+        this.speed = 3;
+    }
+
     public double getSpeed() {
         return this.speed;
     }
@@ -25,4 +29,10 @@ public class PlayerAttributes {
     public void recieveDamage(double number) {
         this.currentHealth -= number;
     }
+
+    public void slowDown(double amount) {
+        this.speed -= amount;
+    }
+
+    public void addHealth(double amount) { this.currentHealth += amount; }
 }

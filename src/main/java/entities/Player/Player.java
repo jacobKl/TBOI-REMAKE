@@ -23,7 +23,7 @@ public class Player extends Entity {
     private TearTexture tearTexture = new TearTexture();
 
     public Player(double startX, double startY, ArrayList<Projectile> projectiles) {
-        super(startX, startY, 64, 64);
+        super(startX, startY, 90, 90);
 
         this.projectiles = projectiles;
         this.spritesheet = new Image(getClass().getResource("/isaac_old.png").toExternalForm());
@@ -35,6 +35,7 @@ public class Player extends Entity {
             case S -> this.playerActivity.down = isPressed;
             case A -> this.playerActivity.left = isPressed;
             case D -> this.playerActivity.right = isPressed;
+            case E -> this.playerActivity.placingBomb = isPressed;
         }
 
         switch(keyEvent.getCode()) {
@@ -50,6 +51,8 @@ public class Player extends Entity {
         Entity futurePosition = new Entity(movementVector.getX() + 15, movementVector.getY() + 30, this.width - 30, this.height - 30);
 
         boolean obstacleCollision = false;
+
+        this.playerAttributes.update();
 
         for (Entity entity : entities) {
             if (futurePosition.intersects(entity)) {
@@ -75,6 +78,10 @@ public class Player extends Entity {
 
         if (this.playerActivity.isShooting() && this.playerActivity.canShoot()) {
             this.shoot();
+        }
+
+        if (this.playerActivity.placingBomb && this.playerInventory.getBombs() > 0) {
+            this.placeBomb(entities);
         }
     }
 
@@ -108,12 +115,13 @@ public class Player extends Entity {
     public void shoot() {
         if (!this.playerActivity.canShoot())
             return;
+
         Vector2D shootingVector = this.playerActivity.getShootingVector();
         Vector2D walkingVector = this.playerActivity.getWalkingVector();
 
         Vector2D entityCenter = this.getEntityCenter();
 
-        boolean isPerpendicular = (VectorUtils.scalar(shootingVector, walkingVector) == 0 && this.playerActivity.isWalking()) ? true : false;
+        boolean isPerpendicular = VectorUtils.scalar(shootingVector, walkingVector) == 0 && this.playerActivity.isWalking();
 
         Projectile projectile = new Projectile(entityCenter.getX(), entityCenter.getY(), walkingVector, shootingVector, isPerpendicular, this.tearTexture.get());
 
@@ -131,5 +139,9 @@ public class Player extends Entity {
         if (this.playerActivity.right) dx += speed;
 
         return new Vector2D(dx, dy);
+    }
+
+    private void placeBomb(ArrayList<Entity> entities) {
+        // TODO: implement
     }
 }

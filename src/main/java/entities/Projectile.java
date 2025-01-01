@@ -14,7 +14,7 @@ public class Projectile extends Entity {
     private Image projectileImage;
 
     public Projectile(double startX, double startY, Vector2D walkingVector, Vector2D shootingVector, boolean perpendicular, Image texture) {
-        super(startX, startY, 20, 20);
+        super(startX - 15 , startY - 15, 30, 30);
         this.walkingVector = walkingVector;
         this.shootingVector = shootingVector;
         this.perpendicular = perpendicular;

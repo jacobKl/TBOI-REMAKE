@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class Coin extends Entity implements PickupEntity {
     private CoinTexture coinTexture;
     public Coin(double x, double y, CoinTexture texture) {
-        super(x, y, 30, 30);
+        super(x, y, 40, 40);
         this.coinTexture = texture;
 
         this.collidable = false;
