@@ -1,15 +1,7 @@
 package entities.Room.Textures;
 
-import javafx.scene.image.Image;
-
-public class WebTexture {
-    private final Image texture;
-
+public class WebTexture extends Texture {
     public WebTexture() {
-        this.texture = new Image(getClass().getResource("/web.png").toExternalForm());
-    }
-
-    public Image get() {
-        return this.texture;
+        super("/web.png");
     }
 }

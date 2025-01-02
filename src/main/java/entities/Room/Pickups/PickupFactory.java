@@ -2,8 +2,9 @@ package entities.Room.Pickups;
 
 import entities.Entity;
 import entities.Room.Textures.*;
+import entities.RoomPartsFactory;
 
-public class PickupFactory {
+public class PickupFactory implements RoomPartsFactory {
     private BombTexture bombTexture;
     private CoinTexture coinTexture;
     private KeyTexture keyTexture;

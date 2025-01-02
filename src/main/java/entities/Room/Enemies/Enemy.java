@@ -30,4 +30,8 @@ public abstract class Enemy extends Entity {
 
         return false;
     }
+
+    public double getHealth() {
+        return this.health;
+    }
 }

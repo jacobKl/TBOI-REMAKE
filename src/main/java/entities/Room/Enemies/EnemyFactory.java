@@ -4,8 +4,9 @@ import entities.Entity;
 import entities.Room.Enemies.Duke.DukeOfFlies;
 import entities.Room.Textures.DukeTexture;
 import entities.Room.Textures.FlyTexture;
+import entities.RoomPartsFactory;
 
-public class EnemyFactory {
+public class EnemyFactory implements RoomPartsFactory {
     private FlyTexture flyTexture;
     private DukeTexture dukeTexture;
     public EnemyFactory() {

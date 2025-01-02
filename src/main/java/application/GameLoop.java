@@ -9,11 +9,16 @@ import entities.Entity;
 import entities.Player.Player;
 import entities.Projectile;
 import entities.Room.Enemies.Enemy;
+import entities.Room.Enemies.EnemyFactory;
+import entities.Room.Obstacles.Door;
 import entities.Room.Obstacles.ObstacleFactory;
 import entities.Room.Room;
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,14 +33,18 @@ public class GameLoop extends AnimationTimer {
     private GUI gui;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     private ArrayList<Entity> entities = new ArrayList<>();
-
     private JsonArray roomsArray;
+    private boolean playerTouchesDoors = false;
+    private StackPane root;
+    private RoomLoader roomLoader;
 
-    public GameLoop(GraphicsContext graphicsContext, Scene scene) {
+    public GameLoop(GraphicsContext graphicsContext, Scene scene, StackPane root) {
         this.graphicsContext = graphicsContext;
         this.scene = scene;
+        this.root = root;
+        this.roomLoader = new RoomLoader();
 
-        this.player = new Player(200, 200, this.projectiles);
+        this.player = new Player(550, 350, this.projectiles);
         this.currentRoom = new Room(this.entities);
         this.gui = new GUI();
 
@@ -45,11 +54,7 @@ public class GameLoop extends AnimationTimer {
     private void init() {
         this.scene.setOnKeyPressed(key -> this.player.handleInput(key, true));
         this.scene.setOnKeyReleased(key -> this.player.handleInput(key, false));
-
-        try {
-            this.loadRoom();
-            this.loadRoomEntities(0);
-        } catch (JsonException exception) {} catch (FileNotFoundException fileEx) {}
+        this.entities = this.roomLoader.loadRoomEntities(0);
     }
 
     @Override
@@ -67,6 +72,7 @@ public class GameLoop extends AnimationTimer {
 
     private void update(double deltaTime) {
         this.player.update(this.entities, deltaTime);
+        this.checkIfPlayerIsTouchingDoors();
 
         for (Entity entity : this.entities) {
             entity.update(deltaTime, this.player, this.entities);
@@ -108,32 +114,42 @@ public class GameLoop extends AnimationTimer {
         this.player.render(this.graphicsContext, deltaTime);
     }
 
-    private void loadRoom() throws JsonException, FileNotFoundException {
-        FileReader jsonContent = new FileReader("src/main/resources/rooms.json");
-        JsonArray roomsArray = (JsonArray) Jsoner.deserialize(jsonContent);
 
-        this.roomsArray = roomsArray;
+    private void checkIfPlayerIsTouchingDoors() {
+        for (Entity entity : this.entities) {
+            if (entity instanceof Door) {
+                if (this.player.intersects(entity)) {
+                    if (!this.playerTouchesDoors) {
+                        this.switchToRoom((Door) entity);
+                    }
+                    this.playerTouchesDoors = true;
+                    break;
+                } else {
+                    this.playerTouchesDoors = false;
+                }
+            }
+        }
     }
 
-    private void loadRoomEntities(Integer index) {
-        JsonObject roomObject = (JsonObject) this.roomsArray.get(index);
-        JsonArray roomEntities = (JsonArray) roomObject.get("entities");
+    private void switchToRoom(Door entity) {
+        if (entity.isClosed()) return;
 
-        ObstacleFactory obstacleFactory = new ObstacleFactory();
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(.3), root);
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
 
-        for (Object entity : roomEntities) {
-            JsonObject single = (JsonObject) entity;
-            System.out.println(single);
+        fadeOut.setOnFinished(event -> {
+            this.entities = this.roomLoader.loadRoomEntities(((Door) entity).getToRoomId());
+            Vector2D walkOutPosition = entity.getWalkOutPosition();
+            this.player.setX(walkOutPosition.getX());
+            this.player.setY(walkOutPosition.getY());
 
-            String type = (String) single.get("type");
-            Number xValue = (Number) single.get("x");
-            Number yValue = (Number) single.get("y");
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(.3), root);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
+        });
 
-            Double x = xValue != null ? xValue.doubleValue() : null;
-            Double y = yValue != null ? yValue.doubleValue() : null;
-
-            this.entities.add(obstacleFactory.createEntity(type, x, y));
-        }
-
+        fadeOut.play();
     }
 }

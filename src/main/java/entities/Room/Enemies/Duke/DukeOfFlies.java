@@ -9,6 +9,7 @@ import entities.Room.Enemies.Fly;
 import entities.Room.Room;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -18,11 +19,10 @@ public class DukeOfFlies extends Enemy {
     private Vector2D direction;
     private double speed = 2;
     private boolean coughing = false;
-
     private double deltaSum = 0.5;
-
     private double fliesCountdown = 10;
     private Integer column = 0;
+    private Image bossBar = new Image(getClass().getResource("/boss_bar.png").toExternalForm());
 
     public DukeOfFlies(double startX, double startY, Image spritesheet) {
         super(startX, startY, 200, 200, spritesheet, 300);
@@ -35,6 +35,10 @@ public class DukeOfFlies extends Enemy {
 
     public void render(GraphicsContext gc, double deltaTime) {
         gc.drawImage(this.spritesheet, this.column * 80, 0, 80, 64, this.getX(), this.getY(), this.getWidth(), this.getHeight());
+
+        gc.setFill(Color.RED);
+        gc.fillRect(450, 620, this.getHealth() / 300 * 348, 26);
+        gc.drawImage(this.bossBar, 600 - 200, 600, 400, 56);
     }
 
     public void update(double deltaTime, Player player, ArrayList<Entity> entities) {

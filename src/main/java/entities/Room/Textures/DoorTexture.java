@@ -2,14 +2,8 @@ package entities.Room.Textures;
 
 import javafx.scene.image.Image;
 
-public class DoorTexture {
-    private final Image texture;
-
+public class DoorTexture extends Texture {
     public DoorTexture() {
-        this.texture = new Image(getClass().getResource("/doors.png").toExternalForm());
-    }
-
-    public Image get() {
-        return this.texture;
+        super("/doors.png");
     }
 }

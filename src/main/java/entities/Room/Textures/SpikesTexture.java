@@ -1,15 +1,7 @@
 package entities.Room.Textures;
 
-import javafx.scene.image.Image;
-
-public class SpikesTexture {
-    private final Image texture;
-
+public class SpikesTexture extends Texture {
     public SpikesTexture() {
-        this.texture = new Image(getClass().getResource("/basement_spikes.png").toExternalForm());
-    }
-
-    public Image get() {
-        return this.texture;
+        super("/basement_spikes.png");
     }
 }

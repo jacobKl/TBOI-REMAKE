@@ -1,0 +1,51 @@
+[
+    {
+      "entities": [
+        {
+          "type":  "rock",
+          "x": 130,
+          "y": 130
+        },
+        {
+          "type":  "rock",
+          "x": 130,
+          "y": 600
+        },
+        {
+          "type": "door",
+          "x": 540,
+          "y": 60,
+          "additionalAttributes": {
+            "toRoom": 1,
+            "orientation": "top"
+          }
+        }
+      ],
+      "enemies": []
+    },
+  {
+    "entities": [
+      {
+        "type":  "rock",
+        "x": 400,
+        "y": 400
+      },
+      {
+        "type": "door",
+        "x": 540,
+        "y": 650,
+        "additionalAttributes": {
+          "toRoom": 0,
+          "orientation": "bottom"
+        }
+      }
+    ],
+    "enemies": [
+      {
+        "type": "duke",
+        "x": 200,
+        "y": 200
+      }
+    ]
+  }
+]

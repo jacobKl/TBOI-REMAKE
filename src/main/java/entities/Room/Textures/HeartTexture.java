@@ -1,15 +1,7 @@
 package entities.Room.Textures;
 
-import javafx.scene.image.Image;
-
-public class HeartTexture {
-    private final Image texture;
-
+public class HeartTexture extends Texture {
     public HeartTexture() {
-        this.texture = new Image(getClass().getResource("/pickup_heart.png").toExternalForm());
-    }
-
-    public Image get() {
-        return this.texture;
+        super("/pickup_heart.png");
     }
 }

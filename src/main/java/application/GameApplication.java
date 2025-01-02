@@ -19,15 +19,16 @@ public class GameApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         Canvas canvas = new Canvas(GameApplication.WINDOW_WIDTH, GameApplication.WINDOW_HEIGHT);
+        StackPane root = new StackPane();
+        root.getChildren().add(canvas);
 
-        Scene scene = this.setupScene(primaryStage, canvas);
+        Scene scene = this.setupScene(primaryStage, root);
 
-        GameLoop gameLoop = new GameLoop(canvas.getGraphicsContext2D(), scene);
+        GameLoop gameLoop = new GameLoop(canvas.getGraphicsContext2D(), scene, root);
         gameLoop.start();
     }
 
-    private Scene setupScene(Stage primaryStage, Canvas canvas) {
-        StackPane root = new StackPane(canvas);
+    private Scene setupScene(Stage primaryStage, StackPane root) {
         Scene scene = new Scene(root, Color.BLACK);
         primaryStage.setTitle(GameApplication.WINDOW_NAME);
         primaryStage.setScene(scene);
