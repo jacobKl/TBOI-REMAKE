@@ -28,6 +28,6 @@ public class Web extends Entity {
     }
 
     public void contactWithPlayer(Player player) {
-        player.getPlayerAttributes().slowDown(1);
+        player.getPlayerAttributes().slowDown(2.5);
     }
 }

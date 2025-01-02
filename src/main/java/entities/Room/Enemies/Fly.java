@@ -14,7 +14,7 @@ public class Fly extends Enemy {
     private double speed = 1;
 
     public Fly(double startX, double startY, Image spritesheet) {
-        super(startX, startY, 48, 48, spritesheet, 11);
+        super(startX, startY, 48, 48, spritesheet, 6);
         this.collidable = false;
     }
 

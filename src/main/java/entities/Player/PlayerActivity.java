@@ -17,6 +17,7 @@ public class PlayerActivity {
     }
 
     public void setTearDelay(double tearDelay) {
+        System.out.println("Setting tear delay to = " + tearDelay);
         this.tearDelay = tearDelay;
     }
 

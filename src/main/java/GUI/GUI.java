@@ -1,5 +1,6 @@
 package GUI;
 
+import application.GameApplication;
 import entities.Player.Player;
 import entities.Player.PlayerInventory;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,7 +12,7 @@ import java.io.InputStream;
 
 public class GUI {
     private Image heartImage, emptyHeartImage, keyImage, bombImage, moneyImage;
-    private Font font;
+    public static Font font = Font.loadFont(GUI.class.getResourceAsStream("/fonts/upheavtt.ttf"), 24);;
 
     public GUI() {
         this.heartImage = new Image(getClass().getResource("/full_heart.png").toExternalForm());
@@ -19,8 +20,6 @@ public class GUI {
         this.keyImage = new Image(getClass().getResource("/pickup_key.png").toExternalForm());
         this.bombImage = new Image(getClass().getResource("/pickup_bomb.png").toExternalForm());
         this.moneyImage = new Image(getClass().getResource("/pickup_coin.png").toExternalForm());
-
-       this.font = Font.loadFont(getClass().getResourceAsStream("/fonts/upheavtt.ttf"), 24);
     }
 
     public void render(GraphicsContext gc, double deltaTime, Player player) {
@@ -31,6 +30,19 @@ public class GUI {
         this.renderRow(gc, 0, this.moneyImage, playerInventory.getMoney());
         this.renderRow(gc, 1, this.bombImage, playerInventory.getBombs());
         this.renderRow(gc, 2, this.keyImage, playerInventory.getKeys());
+    }
+
+    public void renderPauseScreen(GraphicsContext gc) {
+        gc.setFill(Color.rgb(0,0,0,.5));
+        gc.fillRect(0,0, GameApplication.WINDOW_WIDTH, GameApplication.WINDOW_HEIGHT);
+    }
+
+    public void renderDeathScreen(GraphicsContext gc) {
+        gc.setFill(Color.rgb(0,0,0,1));
+        gc.fillRect(0,0, GameApplication.WINDOW_WIDTH, GameApplication.WINDOW_HEIGHT);
+        gc.setFill(Color.WHITE);
+        gc.setFont(this.font);
+        gc.fillText("YOU DIED", 550, 380);
     }
 
     private void renderHearts(GraphicsContext gc, Player player) {

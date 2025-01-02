@@ -29,6 +29,16 @@
           "type": "spikes",
           "x": 765,
           "y": 360
+        },
+        {
+          "type": "mushroom",
+          "x": 365,
+          "y": 255
+        },
+        {
+          "type": "mushroom",
+          "x": 765,
+          "y": 255
         }
       ],
       "enemies": [
@@ -61,7 +71,7 @@
           "x": 560,
           "y": 360,
           "additionalAttributes": {
-            "item": "blood-of-the-martyr"
+            "item": "cat-o-nine-tails"
           }
         },
         {

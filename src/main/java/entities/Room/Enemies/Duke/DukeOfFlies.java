@@ -20,7 +20,7 @@ public class DukeOfFlies extends Enemy {
     private double speed = 2;
     private boolean coughing = false;
     private double deltaSum = 0.5;
-    private double fliesCountdown = 10;
+    private double fliesCountdown = 1;
     private Integer column = 0;
     private Image bossBar = new Image(getClass().getResource("/boss_bar.png").toExternalForm());
 
@@ -69,16 +69,18 @@ public class DukeOfFlies extends Enemy {
     }
 
     private void followDirection(Player player) {
-        if (!Room.isWithinBounds(this) || this.intersects(player)) {
-            this.direction = this.getRandomDirection();
-        }
+        Entity futurePosition = new Entity(this.getX() + this.direction.getX() * this.speed, this.getY() + this.direction.getY() * this.speed, this.width, this.height);
 
-        this.setX(this.getX() + this.direction.getX() * this.speed);
-        this.setY(this.getY() + this.direction.getY() * this.speed);
+        if (!Room.isWithinBounds(futurePosition) || this.intersects(player)) {
+            this.direction = this.getRandomDirection();
+        } else {
+            this.setX(this.getX() + this.direction.getX() * this.speed);
+            this.setY(this.getY() + this.direction.getY() * this.speed);
+        }
     }
 
     private Vector2D getRandomDirection() {
-        return new Vector2D(Math.random() * 2 - 1, Math.random() * 2 - 1);
+        return new Vector2D(Math.random() * 3 - 1, Math.random() * 3 - 1);
     }
 
     private void spawnFlies(ArrayList<Entity> entities) {

@@ -26,6 +26,7 @@ public class Charger extends Enemy {
     public Charger(double startX, double startY, Image spritesheet) {
         super(startX, startY, 70, 70, spritesheet, 12);
         this.direction = this.getRandomDirection();
+        this.collidable = false;
     }
 
     public void update(double deltaTime, Player player, ArrayList<Entity> entities) {

@@ -17,6 +17,7 @@ public class ObstacleFactory implements RoomPartsFactory {
     private DoorOpenTexture doorOpenTexture = new DoorOpenTexture();
     private TreasureRoomDoorOpenTexture treasureRoomDoorOpenTexture = new TreasureRoomDoorOpenTexture();
     private TreasureRoomDoorTexture treasureRoomDoorTexture = new TreasureRoomDoorTexture();
+    private MushroomTexture mushroomTexture = new MushroomTexture();
 
     public Entity createEntity(String entity, double x, double y, JsonObject additionalAttributes) {
         switch (entity) {
@@ -30,6 +31,8 @@ public class ObstacleFactory implements RoomPartsFactory {
                 return this.createPedestal(x, y, additionalAttributes);
             case "door":
                 return this.createDoor(x, y, additionalAttributes);
+            case "mushroom":
+                return this.createMushroom(x, y);
         }
 
         return null;
@@ -62,5 +65,9 @@ public class ObstacleFactory implements RoomPartsFactory {
         } else {
             return new Door(x, y, this.doorOpenTexture, this.doorTexture, toRoomId, orientation);
         }
+    }
+
+    private Mushroom createMushroom(double x, double y) {
+        return new Mushroom(x, y, this.mushroomTexture);
     }
 }

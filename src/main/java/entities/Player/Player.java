@@ -129,7 +129,8 @@ public class Player extends Entity {
 
         this.projectiles.add(projectile);
         this.audioManager.playSound("attack.wav");
-        this.playerActivity.setTearDelay(.5);
+        System.out.println("shot speed" + this.playerAttributes.getShootSpeed());
+        this.playerActivity.setTearDelay(this.playerAttributes.getShootSpeed());
     }
 
     public Vector2D getMovementVelocity(double dx, double dy) {

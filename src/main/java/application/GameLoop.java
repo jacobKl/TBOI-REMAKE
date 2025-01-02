@@ -32,6 +32,7 @@ public class GameLoop extends AnimationTimer {
     private Integer currentRoomId = 0;
     private ArrayList<Integer> defeatedRooms = new ArrayList<>();
     private boolean paused = false;
+    private boolean alive = true;
 
     public GameLoop(GraphicsContext graphicsContext, Scene scene, StackPane root) {
         this.graphicsContext = graphicsContext;
@@ -77,10 +78,11 @@ public class GameLoop extends AnimationTimer {
 
     private void update(double deltaTime) {
 
-        if (this.paused) return;
+        if (this.paused || !this.alive) return;
 
         this.player.update(this.entities, deltaTime);
         this.checkIfPlayerIsTouchingDoors();
+        this.checkIfPlayerIsAlive();
 
         for (Entity entity : this.entities) {
             entity.update(deltaTime, this.player, this.entities);
@@ -122,8 +124,11 @@ public class GameLoop extends AnimationTimer {
         this.player.render(this.graphicsContext, deltaTime);
 
         if (this.paused) {
-            this.graphicsContext.setFill(Color.rgb(0,0,0,.5));
-            this.graphicsContext.fillRect(0,0, GameApplication.WINDOW_WIDTH, GameApplication.WINDOW_HEIGHT);
+            this.gui.renderPauseScreen(this.graphicsContext);
+        }
+
+        if (!this.alive) {
+            this.gui.renderDeathScreen(this.graphicsContext);
         }
     }
 
@@ -141,6 +146,14 @@ public class GameLoop extends AnimationTimer {
                     this.playerTouchesDoors = false;
                 }
             }
+        }
+    }
+
+    private void checkIfPlayerIsAlive() {
+        if (player.getPlayerAttributes().getCurrentHealth() > 0) {
+            this.alive = true;
+        } else {
+            this.alive = false;
         }
     }
 

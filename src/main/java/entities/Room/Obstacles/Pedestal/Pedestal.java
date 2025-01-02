@@ -24,7 +24,14 @@ public class Pedestal extends Entity {
     }
 
     private PedestalItemInterface getItem(String item) {
-        return new BloodOfTheMartyr();
+        switch(item) {
+            case "blood-of-the-martyr":
+                return new BloodOfTheMartyr();
+            case "cat-o-nine-tails":
+                return new CatONineTails();
+        }
+
+        return null;
     }
 
     public void contactWithPlayer(Player player) {
