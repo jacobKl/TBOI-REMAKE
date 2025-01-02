@@ -93,6 +93,8 @@ public class Player extends Entity {
         for (SpritesheetPart part : parts) {
             gc.drawImage(this.spritesheet, part.sourceX, part.sourceY, part.sourceWidth, part.sourceHeight, part.targetX, part.targetY + 20, part.targetWidth, part.targetHeight);
         }
+
+        this.playerInventory.renderItems(gc, this);
     }
 
     public PlayerAttributes getPlayerAttributes() {

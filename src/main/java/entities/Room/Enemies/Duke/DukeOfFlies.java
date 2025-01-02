@@ -37,8 +37,8 @@ public class DukeOfFlies extends Enemy {
         gc.drawImage(this.spritesheet, this.column * 80, 0, 80, 64, this.getX(), this.getY(), this.getWidth(), this.getHeight());
 
         gc.setFill(Color.RED);
-        gc.fillRect(450, 620, this.getHealth() / 300 * 348, 26);
-        gc.drawImage(this.bossBar, 600 - 200, 600, 400, 56);
+        gc.fillRect(450, 70, this.getHealth() / 300 * 348, 26);
+        gc.drawImage(this.bossBar, 600 - 200, 50, 400, 56);
     }
 
     public void update(double deltaTime, Player player, ArrayList<Entity> entities) {
@@ -47,6 +47,7 @@ public class DukeOfFlies extends Enemy {
 
         if (this.fliesCountdown < 0) {
             this.coughing = true;
+            this.audioManager.playSound("cough.mp3");
             this.fliesCountdown = Math.random() * 5 + 5;
         }
 

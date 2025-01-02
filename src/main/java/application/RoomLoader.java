@@ -29,12 +29,15 @@ public class RoomLoader {
         }
     }
 
-    public ArrayList<Entity> loadRoomEntities(Integer index) {
+    public ArrayList<Entity> loadRoomEntities(Integer index, ArrayList<Integer> defeatedRooms) {
         ArrayList<Entity> entities = new ArrayList<>();
         JsonObject roomObject = (JsonObject) this.roomsArray.get(index);
 
         this.mapObjectsToFactory(entities, new ObstacleFactory(), (JsonArray) roomObject.get("entities"));
-        this.mapObjectsToFactory(entities, new EnemyFactory(), (JsonArray) roomObject.get("enemies"));
+
+        if (!defeatedRooms.contains(index)) {
+            this.mapObjectsToFactory(entities, new EnemyFactory(), (JsonArray) roomObject.get("enemies"));
+        }
 
         return entities;
     }

@@ -1,5 +1,6 @@
 TODO:
 - Implement bomb placing
-- Implement chests
-- Implement pedestals
-- Remember defeated rooms
+- Death screen
+- Remember room state
+- seed floor
+- maybe another enemy?

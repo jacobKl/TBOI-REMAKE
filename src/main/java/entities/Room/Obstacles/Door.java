@@ -14,13 +14,13 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class Door extends Entity {
-    private DoorOpenTexture doorOpenTexture;
-    private DoorTexture doorTexture;
+    private Texture doorOpenTexture;
+    private Texture doorTexture;
     private Integer toRoomId;
     private String orientation;
     private Texture currentTexture;
 
-    public Door(double x, double y, DoorOpenTexture doorOpenTexture, DoorTexture doorTexture, Integer toRoomId, String orientation) {
+    public Door(double x, double y, Texture doorOpenTexture, Texture doorTexture, Integer toRoomId, String orientation) {
         super(x, y, 120, 90);
         this.doorOpenTexture = doorOpenTexture;
         this.doorTexture = doorTexture;
@@ -40,7 +40,7 @@ public class Door extends Entity {
 
         gc.rotate(angle);
 
-        gc.drawImage(this.currentTexture.get(), -this.getWidth() / 2, -this.getHeight() / 2);
+        gc.drawImage(this.currentTexture.get(), -this.getWidth() / 2, -this.getHeight() / 2, this.getWidth(), this.getHeight());
 
         gc.restore();
     }
@@ -59,6 +59,10 @@ public class Door extends Entity {
         switch(this.orientation) {
             case "bottom":
                 return 180;
+            case "left":
+                return -90;
+            case "right":
+                return 90;
         }
 
         return 0;
@@ -68,6 +72,10 @@ public class Door extends Entity {
         switch (this.orientation) {
             case "top":
                 return new Vector2D(550, 580);
+            case "left":
+                return new Vector2D(1000, 340);
+            case "right":
+                return new Vector2D(140, 340);
         }
 
         return new Vector2D(550, 140);

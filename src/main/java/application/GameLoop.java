@@ -1,27 +1,20 @@
 package application;
 
 import GUI.GUI;
-import com.github.cliftonlabs.json_simple.JsonArray;
-import com.github.cliftonlabs.json_simple.JsonException;
-import com.github.cliftonlabs.json_simple.JsonObject;
-import com.github.cliftonlabs.json_simple.Jsoner;
 import entities.Entity;
 import entities.Player.Player;
 import entities.Projectile;
 import entities.Room.Enemies.Enemy;
-import entities.Room.Enemies.EnemyFactory;
 import entities.Room.Obstacles.Door;
-import entities.Room.Obstacles.ObstacleFactory;
 import entities.Room.Room;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class GameLoop extends AnimationTimer {
@@ -33,16 +26,17 @@ public class GameLoop extends AnimationTimer {
     private GUI gui;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     private ArrayList<Entity> entities = new ArrayList<>();
-    private JsonArray roomsArray;
     private boolean playerTouchesDoors = false;
     private StackPane root;
-    private RoomLoader roomLoader;
+    private RoomLoader roomLoader = new RoomLoader();
+    private Integer currentRoomId = 0;
+    private ArrayList<Integer> defeatedRooms = new ArrayList<>();
+    private boolean paused = false;
 
     public GameLoop(GraphicsContext graphicsContext, Scene scene, StackPane root) {
         this.graphicsContext = graphicsContext;
         this.scene = scene;
         this.root = root;
-        this.roomLoader = new RoomLoader();
 
         this.player = new Player(550, 350, this.projectiles);
         this.currentRoom = new Room(this.entities);
@@ -52,9 +46,20 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void init() {
-        this.scene.setOnKeyPressed(key -> this.player.handleInput(key, true));
+        this.scene.setOnKeyPressed(key ->  {
+            this.player.handleInput(key, true);
+
+            switch (key.getCode()) {
+                case ESCAPE -> {
+                    this.paused = !this.paused;
+                    System.out.println(this.paused);
+                }
+            }
+        });
         this.scene.setOnKeyReleased(key -> this.player.handleInput(key, false));
-        this.entities = this.roomLoader.loadRoomEntities(0);
+
+
+        this.entities = this.roomLoader.loadRoomEntities(0, this.defeatedRooms);
     }
 
     @Override
@@ -71,6 +76,9 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void update(double deltaTime) {
+
+        if (this.paused) return;
+
         this.player.update(this.entities, deltaTime);
         this.checkIfPlayerIsTouchingDoors();
 
@@ -112,6 +120,11 @@ public class GameLoop extends AnimationTimer {
         }
 
         this.player.render(this.graphicsContext, deltaTime);
+
+        if (this.paused) {
+            this.graphicsContext.setFill(Color.rgb(0,0,0,.5));
+            this.graphicsContext.fillRect(0,0, GameApplication.WINDOW_WIDTH, GameApplication.WINDOW_HEIGHT);
+        }
     }
 
 
@@ -133,13 +146,15 @@ public class GameLoop extends AnimationTimer {
 
     private void switchToRoom(Door entity) {
         if (entity.isClosed()) return;
+        this.defeatedRooms.add(this.currentRoomId);
 
         FadeTransition fadeOut = new FadeTransition(Duration.seconds(.3), root);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
 
         fadeOut.setOnFinished(event -> {
-            this.entities = this.roomLoader.loadRoomEntities(((Door) entity).getToRoomId());
+            this.entities = this.roomLoader.loadRoomEntities(entity.getToRoomId(), this.defeatedRooms);
+            this.currentRoomId = entity.getToRoomId();
             Vector2D walkOutPosition = entity.getWalkOutPosition();
             this.player.setX(walkOutPosition.getX());
             this.player.setY(walkOutPosition.getY());

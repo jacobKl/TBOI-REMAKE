@@ -4,7 +4,7 @@ public class PlayerAttributes {
     private double speed = 3;
     private double maxHealth = 3;
     private double currentHealth = 3;
-    private double damage = 3;
+    private double damage = 50;
 
     public void update() {
         this.speed = 3;
@@ -35,4 +35,8 @@ public class PlayerAttributes {
     }
 
     public void addHealth(double amount) { this.currentHealth += amount; }
+
+    public void changeDamage(double amount) {
+        this.damage += amount;
+    }
 }

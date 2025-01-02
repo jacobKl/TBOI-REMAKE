@@ -2,23 +2,77 @@
     {
       "entities": [
         {
-          "type":  "rock",
-          "x": 130,
-          "y": 130
-        },
-        {
-          "type":  "rock",
-          "x": 130,
-          "y": 600
+          "type": "door",
+          "x": 30,
+          "y": 340,
+          "additionalAttributes": {
+            "toRoom": 1,
+            "orientation": "left",
+            "roomType": "treasure"
+          }
         },
         {
           "type": "door",
-          "x": 540,
-          "y": 60,
+          "x": 560,
+          "y": 40,
           "additionalAttributes": {
-            "toRoom": 1,
+            "toRoom": 2,
             "orientation": "top"
           }
+        },
+        {
+          "type": "spikes",
+          "x": 365,
+          "y": 360
+        },
+        {
+          "type": "spikes",
+          "x": 765,
+          "y": 360
+        }
+      ],
+      "enemies": [
+        {
+          "type": "fly",
+          "x": 276,
+          "y": 360
+        },
+        {
+          "type": "fly",
+          "x": 876,
+          "y": 360
+        }
+      ]
+    },
+    {
+      "entities": [
+        {
+          "type": "door",
+          "x": 1050,
+          "y": 340,
+          "additionalAttributes": {
+            "toRoom": 0,
+            "orientation": "right",
+            "roomType": "treasure"
+          }
+        },
+        {
+          "type": "pedestal",
+          "x": 560,
+          "y": 360,
+          "additionalAttributes": {
+            "item": "blood-of-the-martyr"
+          }
+        },
+        {
+          "type": "web",
+          "x": 265,
+          "y": 360
+        },
+        {
+          "type": "web",
+          "x": 865,
+          "y": 360
         }
       ],
       "enemies": []
@@ -26,16 +80,45 @@
   {
     "entities": [
       {
-        "type":  "rock",
-        "x": 400,
-        "y": 400
+        "type": "door",
+        "x": 560,
+        "y": 660,
+        "additionalAttributes": {
+          "toRoom": 1,
+          "orientation": "bottom"
+        }
       },
       {
         "type": "door",
-        "x": 540,
-        "y": 650,
+        "x": 560,
+        "y": 40,
         "additionalAttributes": {
-          "toRoom": 0,
+          "toRoom": 3,
+          "orientation": "top"
+        }
+      }
+    ],
+    "enemies": [
+      {
+        "type": "charger",
+        "x": 276,
+        "y": 360
+      },
+      {
+        "type": "charger",
+        "x": 876,
+        "y": 360
+      }
+    ]
+  },
+  {
+    "entities": [
+      {
+        "type": "door",
+        "x": 560,
+        "y": 660,
+        "additionalAttributes": {
+          "toRoom": 2,
           "orientation": "bottom"
         }
       }
@@ -43,8 +126,8 @@
     "enemies": [
       {
         "type": "duke",
-        "x": 200,
-        "y": 200
+        "x": 560,
+        "y": 300
       }
     ]
   }
