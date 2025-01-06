@@ -5,11 +5,6 @@ import application.Vector2D;
 import entities.Player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 
 public class CatONineTails extends PedestalItem implements PedestalItemInterface {
     private Image image = new Image(getClass().getResource("/item/cat-o-nine-tails.png").toExternalForm());

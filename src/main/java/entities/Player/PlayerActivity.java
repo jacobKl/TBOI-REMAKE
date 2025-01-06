@@ -17,7 +17,6 @@ public class PlayerActivity {
     }
 
     public void setTearDelay(double tearDelay) {
-        System.out.println("Setting tear delay to = " + tearDelay);
         this.tearDelay = tearDelay;
     }
 
@@ -44,6 +43,10 @@ public class PlayerActivity {
         } else {
             return false;
         }
+    }
+
+    public boolean isHurt() {
+        return this.immuneDelay > 0;
     }
 
     public String getShootingDirection() {

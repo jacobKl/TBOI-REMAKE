@@ -50,7 +50,6 @@ public class AudioManager {
             @Override
             protected void failed() {
                 super.failed();
-                System.out.println("Failed to load sound: " + filename);
             }
         };
 

@@ -29,7 +29,6 @@ public class GameLoop extends AnimationTimer {
     private boolean playerTouchesDoors = false;
     private StackPane root;
     private RoomLoader roomLoader = new RoomLoader();
-    private Integer currentRoomId = 0;
     private ArrayList<Integer> defeatedRooms = new ArrayList<>();
     private boolean paused = false;
     private boolean alive = true;
@@ -39,7 +38,7 @@ public class GameLoop extends AnimationTimer {
         this.scene = scene;
         this.root = root;
 
-        this.player = new Player(550, 350, this.projectiles);
+        this.player = new Player(550, 340, this.projectiles);
         this.currentRoom = new Room(this.entities);
         this.gui = new GUI();
 
@@ -53,12 +52,10 @@ public class GameLoop extends AnimationTimer {
             switch (key.getCode()) {
                 case ESCAPE -> {
                     this.paused = !this.paused;
-                    System.out.println(this.paused);
                 }
             }
         });
         this.scene.setOnKeyReleased(key -> this.player.handleInput(key, false));
-
 
         this.entities = this.roomLoader.loadRoomEntities(0, this.defeatedRooms);
     }
@@ -77,7 +74,6 @@ public class GameLoop extends AnimationTimer {
     }
 
     private void update(double deltaTime) {
-
         if (this.paused || !this.alive) return;
 
         this.player.update(this.entities, deltaTime);
@@ -123,6 +119,8 @@ public class GameLoop extends AnimationTimer {
 
         this.player.render(this.graphicsContext, deltaTime);
 
+        this.currentRoom.renderShadows(this.graphicsContext);
+
         if (this.paused) {
             this.gui.renderPauseScreen(this.graphicsContext);
         }
@@ -159,7 +157,8 @@ public class GameLoop extends AnimationTimer {
 
     private void switchToRoom(Door entity) {
         if (entity.isClosed()) return;
-        this.defeatedRooms.add(this.currentRoomId);
+
+        this.defeatedRooms.add(this.currentRoom.getRoomId());
 
         FadeTransition fadeOut = new FadeTransition(Duration.seconds(.3), root);
         fadeOut.setFromValue(1.0);
@@ -167,7 +166,7 @@ public class GameLoop extends AnimationTimer {
 
         fadeOut.setOnFinished(event -> {
             this.entities = this.roomLoader.loadRoomEntities(entity.getToRoomId(), this.defeatedRooms);
-            this.currentRoomId = entity.getToRoomId();
+            this.currentRoom.setRoomId(entity.getToRoomId());
             Vector2D walkOutPosition = entity.getWalkOutPosition();
             this.player.setX(walkOutPosition.getX());
             this.player.setY(walkOutPosition.getY());

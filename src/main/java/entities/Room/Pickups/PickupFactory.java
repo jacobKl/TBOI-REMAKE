@@ -1,5 +1,6 @@
 package entities.Room.Pickups;
 
+import application.GameApplication;
 import entities.Entity;
 import entities.Room.Textures.*;
 import entities.RoomPartsFactory;
@@ -17,15 +18,18 @@ public class PickupFactory implements RoomPartsFactory {
     }
 
     public Entity createEntity(String entity, double x, double y) {
+        double startX = GameApplication.GRID_BUFFER + x * GameApplication.GRID_WIDTH;
+        double startY = GameApplication.GRID_BUFFER + y * GameApplication.GRID_WIDTH;
+
         switch (entity) {
             case "bomb":
-                return this.createBomb(x, y);
+                return this.createBomb(startX, startY);
             case "coin":
-                return this.createCoin(x, y);
+                return this.createCoin(startX, startY);
             case "key":
-                return this.createKey(x, y);
+                return this.createKey(startX, startY);
             case "heart":
-                return this.createHeart(x, y);
+                return this.createHeart(startX, startY);
         }
 
         return null;

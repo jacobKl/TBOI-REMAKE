@@ -19,6 +19,7 @@ public class Door extends Entity {
     private Integer toRoomId;
     private String orientation;
     private Texture currentTexture;
+    private boolean closed = false;
 
     public Door(double x, double y, Texture doorOpenTexture, Texture doorTexture, Integer toRoomId, String orientation) {
         super(x, y, 120, 90);
@@ -48,6 +49,9 @@ public class Door extends Entity {
     public void update(double deltaTime, Player player, ArrayList<Entity> entities) {
         boolean monstersAlive = entities.stream().anyMatch(o -> o instanceof Enemy);
 
+        if (monstersAlive) this.closed = true;
+        else this.closed = false;
+
         if (monstersAlive && !(this.currentTexture instanceof DoorTexture)) {
             this.currentTexture = this.doorTexture;
         } else if (!monstersAlive && !(this.currentTexture instanceof DoorOpenTexture)) {
@@ -71,14 +75,14 @@ public class Door extends Entity {
     public Vector2D getWalkOutPosition() {
         switch (this.orientation) {
             case "top":
-                return new Vector2D(550, 580);
+                return new Vector2D(550, 520);
             case "left":
                 return new Vector2D(1000, 340);
             case "right":
                 return new Vector2D(140, 340);
         }
 
-        return new Vector2D(550, 140);
+        return new Vector2D(550, 160);
     }
 
     public Integer getToRoomId() {
@@ -86,10 +90,10 @@ public class Door extends Entity {
     }
 
     public Bounds getBounds() {
-        return new BoundingBox(this.getPosition().getX() + 10, this.getPosition().getY() + 25, this.width - 20, this.height - 50);
+        return new BoundingBox(this.getPosition().getX() + 20, this.getPosition().getY(), this.width - 40, this.height);
     }
 
     public boolean isClosed() {
-        return this.currentTexture instanceof DoorTexture;
+        return this.closed;
     }
 }

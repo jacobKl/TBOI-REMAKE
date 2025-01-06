@@ -10,7 +10,9 @@ import javafx.stage.Stage;
 public class GameApplication extends Application {
     private static final String WINDOW_NAME = "The Binding of Isaac - Remake";
     public static final Integer WINDOW_WIDTH = 1200;
-    public static final Integer WINDOW_HEIGHT = 800;
+    public static final Integer WINDOW_HEIGHT = 764;
+    public static final double GRID_BUFFER = 130;
+    public static final double GRID_WIDTH = 72;
 
     public static void main(String[] args) {
         launch(args);

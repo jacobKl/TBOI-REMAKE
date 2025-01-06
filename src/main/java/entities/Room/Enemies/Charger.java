@@ -1,5 +1,6 @@
 package entities.Room.Enemies;
 
+import Utils.Clock;
 import application.Vector2D;
 import entities.Entity;
 import entities.Player.Player;
@@ -9,19 +10,16 @@ import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
 
 public class Charger extends Enemy {
     private Vector2D direction = new Vector2D(0, 0);
     private double speed = 3;
     private double directionCounter = 2.5;
-    private double deltaBody = 0.5;
+    private Clock bodyClock = new Clock(0.5);
     private Integer columnIndex = 0;
     private Integer rowIndex = 0;
     private boolean charging = false;
     private boolean flip;
-
-    private Entity projectedDirection;
 
     public Charger(double startX, double startY, Image spritesheet) {
         super(startX, startY, 70, 70, spritesheet, 12);
@@ -33,11 +31,8 @@ public class Charger extends Enemy {
         Entity futurePosition = new Entity(this.getX() + this.direction.getX() * speed, this.getY() + this.direction.getY() * speed, 70, 70);
 
         this.directionCounter -= deltaTime;
-        this.deltaBody -= deltaTime;
 
         Entity direction = this.getProjectedDirection();
-
-        this.projectedDirection = direction;
 
         this.setSprites(this.getDirectionFromVector());
 
@@ -62,9 +57,8 @@ public class Charger extends Enemy {
             }
         }
 
-        if (this.deltaBody < 0 && !this.charging) {
+        if (this.bodyClock.update(deltaTime)) {
             this.columnIndex = (this.columnIndex + 1) % 3;
-            this.deltaBody = 0.5;
         }
 
         if ((!Room.isWithinBounds(futurePosition) || this.directionCounter < 0) && !this.charging) {
@@ -83,10 +77,6 @@ public class Charger extends Enemy {
         } else {
             gc.drawImage(this.spritesheet, this.columnIndex * 32, this.rowIndex * 32, 32, 32, this.getX(), this.getY(), this.getWidth(), this.getHeight());
         }
-
-//        if (this.projectedDirection != null) {
-//            gc.fillRect(this.projectedDirection.getX(), this.projectedDirection.getY(), this.projectedDirection.getWidth(), this.projectedDirection.getHeight());
-//        }
     }
 
     private Vector2D getRandomDirection() {
@@ -151,5 +141,9 @@ public class Charger extends Enemy {
         } else {
             return new Entity(this.getX(), this.getY() - 400, 70, 400);
         }
+    }
+
+    public void contactWithPlayer(Player player) {
+        player.receiveDamage(1);
     }
 }

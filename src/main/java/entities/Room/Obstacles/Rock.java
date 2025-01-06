@@ -1,5 +1,6 @@
 package entities.Room.Obstacles;
 
+import application.GameApplication;
 import entities.Entity;
 import entities.Room.Textures.RockTexture;
 import javafx.scene.canvas.GraphicsContext;
@@ -7,7 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class Rock extends Entity {
     private RockTexture rockTexture;
     public Rock(double x, double y, RockTexture texture) {
-        super(x, y, 70, 70);
+        super(x, y, GameApplication.GRID_WIDTH, GameApplication.GRID_WIDTH);
         this.rockTexture = texture;
     }
 

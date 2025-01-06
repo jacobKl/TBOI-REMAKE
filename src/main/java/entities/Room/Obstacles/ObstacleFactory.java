@@ -1,5 +1,6 @@
 package entities.Room.Obstacles;
 
+import application.GameApplication;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import entities.Entity;
 import entities.Room.Obstacles.Pedestal.Pedestal;
@@ -19,20 +20,27 @@ public class ObstacleFactory implements RoomPartsFactory {
     private TreasureRoomDoorTexture treasureRoomDoorTexture = new TreasureRoomDoorTexture();
     private MushroomTexture mushroomTexture = new MushroomTexture();
 
+    private VaseTexture vaseTexture = new VaseTexture();
+
     public Entity createEntity(String entity, double x, double y, JsonObject additionalAttributes) {
+        double startX = GameApplication.GRID_BUFFER + x * GameApplication.GRID_WIDTH;
+        double startY = GameApplication.GRID_BUFFER + y * GameApplication.GRID_WIDTH;
+
         switch (entity) {
             case "rock":
-                return this.createRock(x, y);
+                return this.createRock(startX, startY);
             case "spikes":
-                return this.createSpikes(x, y);
+                return this.createSpikes(startX, startY);
             case "web":
-                return this.createWeb(x, y);
+                return this.createWeb(startX, startY);
             case "pedestal":
-                return this.createPedestal(x, y, additionalAttributes);
+                return this.createPedestal(startX, startY, additionalAttributes);
             case "door":
                 return this.createDoor(x, y, additionalAttributes);
             case "mushroom":
-                return this.createMushroom(x, y);
+                return this.createMushroom(startX, startY);
+            case "vase":
+                return this.createVase(startX, startY);
         }
 
         return null;
@@ -69,5 +77,9 @@ public class ObstacleFactory implements RoomPartsFactory {
 
     private Mushroom createMushroom(double x, double y) {
         return new Mushroom(x, y, this.mushroomTexture);
+    }
+
+    private Vase createVase(double x, double y) {
+        return new Vase(x,y, this.vaseTexture);
     }
 }

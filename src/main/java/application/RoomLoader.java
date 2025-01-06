@@ -35,7 +35,9 @@ public class RoomLoader {
 
         this.mapObjectsToFactory(entities, new ObstacleFactory(), (JsonArray) roomObject.get("entities"));
 
+
         if (!defeatedRooms.contains(index)) {
+            this.mapObjectsToFactory(entities, new PickupFactory(), (JsonArray) roomObject.get("pickups"));
             this.mapObjectsToFactory(entities, new EnemyFactory(), (JsonArray) roomObject.get("enemies"));
         }
 

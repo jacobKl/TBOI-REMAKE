@@ -1,17 +1,15 @@
 package entities.Room.Pickups;
 
-import application.AudioManager;
 import entities.Entity;
 import entities.PickupEntity;
 import entities.Player.Player;
-import entities.Room.Textures.CoinTexture;
 import entities.Room.Textures.HeartTexture;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Heart extends Entity implements PickupEntity {
     private HeartTexture heartTexture;
     public Heart(double x, double y, HeartTexture texture) {
-        super(x, y, 40, 40);
+        super(x, y, 50, 40);
         this.heartTexture = texture;
 
         this.collidable = false;

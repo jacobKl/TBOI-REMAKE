@@ -1,5 +1,7 @@
 package entities.Room.Enemies;
 
+import Utils.Clock;
+import Utils.OscillatingValue;
 import application.Vector2D;
 import entities.Entity;
 import entities.Player.Player;
@@ -10,7 +12,9 @@ import java.util.ArrayList;
 
 public class Fly extends Enemy {
     private Integer column = 0;
-    private double clock = 0.1;
+    private Clock clock = new Clock(0.1);
+
+    private OscillatingValue value = new OscillatingValue(0, 1, -0.5, 0.5);
     private double speed = 1;
 
     public Fly(double startX, double startY, Image spritesheet) {
@@ -19,19 +23,14 @@ public class Fly extends Enemy {
     }
 
     public void render(GraphicsContext gc, double deltaTime) {
-        gc.drawImage(this.spritesheet, this.column * 32, 0, 32, 32, this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        gc.drawImage(this.spritesheet, this.column * 32, 0, 32, 32, this.getX(), this.getY() + this.value.update() * 10, this.getWidth(), this.getHeight());
     }
 
     public void update(double deltaTime, Player player, ArrayList<Entity> entities) {
-        this.clock -= deltaTime;
 
-        if (this.clock < 0) {
-            this.column += 1;
-            this.clock = 0.1;
+        if (this.clock.update(deltaTime)) {
+            this.column = (this.column + 1) % 2;
         }
-
-        if (this.column > 1)
-            this.column = 0;
 
         double angle = this.getGoToPlayerAngle(player);
 

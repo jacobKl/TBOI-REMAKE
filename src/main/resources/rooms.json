@@ -13,7 +13,7 @@
         },
         {
           "type": "door",
-          "x": 560,
+          "x": 530,
           "y": 40,
           "additionalAttributes": {
             "toRoom": 2,
@@ -21,68 +21,96 @@
           }
         },
         {
-          "type": "spikes",
-          "x": 365,
-          "y": 360
-        },
-        {
-          "type": "spikes",
-          "x": 765,
-          "y": 360
+          "type": "mushroom",
+          "x": 4,
+          "y": 1
         },
         {
           "type": "mushroom",
-          "x": 365,
-          "y": 255
+          "x": 8,
+          "y": 1
         },
         {
-          "type": "mushroom",
-          "x": 765,
-          "y": 255
+          "type": "spikes",
+          "x": 4,
+          "y": 3
+        },
+        {
+          "type": "spikes",
+          "x": 8,
+          "y": 3
+        },
+        {
+          "type": "rock",
+          "x": 4,
+          "y": 5
+        },
+        {
+          "type": "rock",
+          "x": 8,
+          "y": 5
+        },
+        {
+          "type": "web",
+          "x": 0,
+          "y": 1
+        },
+        {
+          "type": "web",
+          "x": 1,
+          "y": 0
+        },
+        {
+          "type": "rock",
+          "x": 0,
+          "y": 5
+        },
+        {
+          "type": "rock",
+          "x": 1,
+          "y": 6
+        },
+        {
+          "type": "rock",
+          "x": 11,
+          "y": 0
+        },
+        {
+          "type": "rock",
+          "x": 12,
+          "y": 1
+        },
+        {
+          "type": "web",
+          "x": 12,
+          "y": 5
+        },
+        {
+          "type": "web",
+          "x": 11,
+          "y": 6
         }
       ],
-      "enemies": [
+      "pickups": [
         {
-          "type": "fly",
-          "x": 276,
-          "y": 360
+          "type": "key",
+          "x": 0,
+          "y": 0
         },
         {
-          "type": "fly",
-          "x": 876,
-          "y": 360
-        }
-      ]
-    },
-    {
-      "entities": [
-        {
-          "type": "door",
-          "x": 1050,
-          "y": 340,
-          "additionalAttributes": {
-            "toRoom": 0,
-            "orientation": "right",
-            "roomType": "treasure"
-          }
+          "type": "coin",
+          "x": 0,
+          "y": 6
         },
         {
-          "type": "pedestal",
-          "x": 560,
-          "y": 360,
-          "additionalAttributes": {
-            "item": "cat-o-nine-tails"
-          }
+          "type": "heart",
+          "x": 12,
+          "y": 6
         },
         {
-          "type": "web",
-          "x": 265,
-          "y": 360
-        },
-        {
-          "type": "web",
-          "x": 865,
-          "y": 360
+          "type": "bomb",
+          "x": 12,
+          "y": 0
         }
       ],
       "enemies": []
@@ -90,34 +118,67 @@
   {
     "entities": [
       {
-        "type": "door",
-        "x": 560,
-        "y": 660,
+        "type": "web",
+        "x": 5,
+        "y": 3
+      },
+      {
+        "type": "web",
+        "x": 7,
+        "y": 3
+      },
+      {
+        "type": "web",
+        "x": 6,
+        "y": 2
+      },
+      {
+        "type": "web",
+        "x": 6,
+        "y": 4
+      },
+      {
+        "type": "pedestal",
+        "x": 6,
+        "y": 3,
         "additionalAttributes": {
-          "toRoom": 1,
-          "orientation": "bottom"
+          "item": "blood-of-the-martyr"
         }
       },
       {
         "type": "door",
-        "x": 560,
-        "y": 40,
+        "x": 1050,
+        "y": 340,
         "additionalAttributes": {
-          "toRoom": 3,
-          "orientation": "top"
+          "toRoom": 0,
+          "orientation": "right",
+          "roomType": "treasure"
         }
       }
     ],
+    "pickups": [
+
+    ],
     "enemies": [
       {
-        "type": "charger",
-        "x": 276,
-        "y": 360
+        "type": "fly",
+        "x": 4,
+        "y": 3
       },
       {
-        "type": "charger",
-        "x": 876,
-        "y": 360
+        "type": "fly",
+        "x": 8,
+        "y": 3
+      },
+      {
+        "type": "fly",
+        "x": 6,
+        "y": 1
+      },
+      {
+        "type": "fly",
+        "x": 6,
+        "y": 5
       }
     ]
   },
@@ -125,8 +186,207 @@
     "entities": [
       {
         "type": "door",
-        "x": 560,
-        "y": 660,
+        "x": 530,
+        "y": 40,
+        "additionalAttributes": {
+          "toRoom": 3,
+          "orientation": "top"
+        }
+      },
+      {
+        "type": "door",
+        "x": 535,
+        "y": 630,
+        "additionalAttributes": {
+          "toRoom": 0,
+          "orientation": "bottom"
+        }
+      },
+      {
+        "type": "pedestal",
+        "x": 0,
+        "y": 0,
+        "additionalAttributes": {
+          "item": "cat-o-nine-tails"
+        }
+      },
+      {
+        "type": "web",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "web",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "type": "web",
+        "x": 6,
+        "y": 0
+      },
+      {
+        "type": "web",
+        "x": 8,
+        "y": 0
+      },
+      {
+        "type": "web",
+        "x": 10,
+        "y": 0
+      },
+      {
+        "type": "web",
+        "x": 12,
+        "y": 0
+      },
+      {
+        "type": "web",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "web",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "type": "web",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "type": "web",
+        "x": 6,
+        "y": 2
+      },
+      {
+        "type": "web",
+        "x": 8,
+        "y": 2
+      },
+      {
+        "type": "web",
+        "x": 10,
+        "y": 2
+      },
+      {
+        "type": "web",
+        "x": 12,
+        "y": 2
+      },
+      {
+        "type": "web",
+        "x": 0,
+        "y": 4
+      },
+      {
+        "type": "web",
+        "x": 2,
+        "y": 4
+      },
+      {
+        "type": "web",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "type": "web",
+        "x": 6,
+        "y": 4
+      },
+      {
+        "type": "web",
+        "x": 8,
+        "y": 4
+      },
+      {
+        "type": "web",
+        "x": 10,
+        "y": 4
+      },
+      {
+        "type": "web",
+        "x": 12,
+        "y": 4
+      },
+      {
+        "type": "web",
+        "x": 0,
+        "y": 6
+      },
+      {
+        "type": "web",
+        "x": 2,
+        "y": 6
+      },
+      {
+        "type": "web",
+        "x": 4,
+        "y": 6
+      },
+      {
+        "type": "web",
+        "x": 6,
+        "y": 6
+      },
+      {
+        "type": "web",
+        "x": 8,
+        "y": 6
+      },
+      {
+        "type": "web",
+        "x": 10,
+        "y": 6
+      }
+    ],
+    "pickups": [
+      {
+        "type": "heart",
+        "x": 12,
+        "y": 6
+      }
+    ],
+    "enemies": [
+      {
+        "type": "charger",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "charger",
+        "x": 11,
+        "y": 1
+      },
+      {
+        "type": "charger",
+        "x": 1,
+        "y": 5
+      },
+      {
+        "type": "charger",
+        "x": 11,
+        "y": 5
+      }
+    ]
+  },
+  {
+    "entities": [
+      {
+        "type": "mushroom",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "type": "mushroom",
+        "x": 8,
+        "y": 3
+      },
+      {
+        "type": "door",
+        "x": 535,
+        "y": 630,
         "additionalAttributes": {
           "toRoom": 2,
           "orientation": "bottom"
@@ -136,8 +396,20 @@
     "enemies": [
       {
         "type": "duke",
-        "x": 560,
-        "y": 300
+        "x": 5,
+        "y": 2
+      }
+    ],
+    "pickups": [
+      {
+        "type": "bomb",
+        "x": 5,
+        "y": 6
+      },
+      {
+        "type": "bomb",
+        "x": 7,
+        "y": 6
       }
     ]
   }

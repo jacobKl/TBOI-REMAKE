@@ -1,12 +1,13 @@
 package entities.Player;
 
+import Utils.Clock;
 import entities.SpritesheetPart;
 
 public class PlayerActive implements PlayerState {
     private int bodyFrame = 0;
     private int headFrame = 0;
-    private double bodySum = 0;
-    private double headSum = .25;
+    private Clock bodyClock = new Clock(.1);
+    private Clock headClock = new Clock(.25);
     private Integer headColumn = 0;
     private Integer bodyRow = 1;
     private boolean verticalFlip = false;
@@ -44,30 +45,20 @@ public class PlayerActive implements PlayerState {
             this.headFrame = 0;
         }
 
-        if (this.bodySum > 0.1) {
-            if (this.activity.isWalking())
-                this.bodyFrame += 1;
-
-            if (this.bodyFrame == 9) {
-                this.bodyFrame = 0;
+        if (this.bodyClock.update(deltaTime)) {
+            if (this.activity.isWalking()) {
+                this.bodyFrame++;
+                if (this.bodyFrame == 9) {
+                    this.bodyFrame = 0;
+                }
             }
-
-            this.bodySum = 0;
-        } else {
-            this.bodySum += deltaTime;
         }
 
-        if (this.headSum > .25) {
+        if (this.headClock.update(deltaTime)) {
             if (this.activity.isShooting()) {
-                this.headFrame = this.headFrame + 1;
-                this.headFrame %= 2;
+                this.headFrame = (this.headFrame + 1) % 2;
             }
-
-            this.headSum = 0;
-        } else {
-            this.headSum += deltaTime;
         }
-
     }
 
     private void setSheets() {

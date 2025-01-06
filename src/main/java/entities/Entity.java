@@ -64,7 +64,5 @@ public class Entity implements EntityInterface {
         return new Vector2D(startX, startY);
     }
 
-    public void update(double deltaTime, Player player, ArrayList<Entity> entities) {
-
-    }
+    public void update(double deltaTime, Player player, ArrayList<Entity> entities) {};
 }

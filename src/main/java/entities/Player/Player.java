@@ -5,13 +5,17 @@ import application.VectorUtils;
 import entities.Entity;
 import entities.PickupEntity;
 import entities.Projectile;
+import entities.Room.PlacedBomb;
 import entities.Room.Room;
+import entities.Room.Textures.TearShadowTexture;
 import entities.Room.Textures.TearTexture;
 import entities.SpritesheetPart;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 public class Player extends Entity {
     private PlayerActivity playerActivity = new PlayerActivity();
@@ -21,6 +25,9 @@ public class Player extends Entity {
     private PlayerState state = new PlayerActive();
     private ArrayList<Projectile> projectiles;
     private TearTexture tearTexture = new TearTexture();
+    private TearShadowTexture tearShadowTexture = new TearShadowTexture();
+
+    private boolean bombPlaced = false;
 
     public Player(double startX, double startY, ArrayList<Projectile> projectiles) {
         super(startX, startY, 90, 90);
@@ -88,10 +95,14 @@ public class Player extends Entity {
     public void render(GraphicsContext gc, double deltaTime) {
         this.state.setPlayerAttributes(this.playerActivity);
 
-        SpritesheetPart[] parts = this.state.getSpritesheetParts(this.getPosition().getX(), this.getPosition().getY(), deltaTime);
+        if (this.playerActivity.isHurt()) {
+            gc.drawImage(this.spritesheet, 0, 128, 32, 32, this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        } else {
+            SpritesheetPart[] parts = this.state.getSpritesheetParts(this.getPosition().getX(), this.getPosition().getY(), deltaTime);
 
-        for (SpritesheetPart part : parts) {
-            gc.drawImage(this.spritesheet, part.sourceX, part.sourceY, part.sourceWidth, part.sourceHeight, part.targetX, part.targetY + 20, part.targetWidth, part.targetHeight);
+            for (SpritesheetPart part : parts) {
+                gc.drawImage(this.spritesheet, part.sourceX, part.sourceY, part.sourceWidth, part.sourceHeight, part.targetX, part.targetY + 20, part.targetWidth, part.targetHeight);
+            }
         }
 
         this.playerInventory.renderItems(gc, this);
@@ -125,11 +136,11 @@ public class Player extends Entity {
 
         boolean isPerpendicular = VectorUtils.scalar(shootingVector, walkingVector) == 0 && this.playerActivity.isWalking();
 
-        Projectile projectile = new Projectile(entityCenter.getX(), entityCenter.getY(), walkingVector, shootingVector, isPerpendicular, this.tearTexture.get());
+        Projectile projectile = new Projectile(entityCenter.getX(), entityCenter.getY(), walkingVector, shootingVector, isPerpendicular, this.tearTexture.get(), this.tearShadowTexture.get());
 
         this.projectiles.add(projectile);
         this.audioManager.playSound("attack.wav");
-        System.out.println("shot speed" + this.playerAttributes.getShootSpeed());
+
         this.playerActivity.setTearDelay(this.playerAttributes.getShootSpeed());
     }
 
@@ -145,6 +156,17 @@ public class Player extends Entity {
     }
 
     private void placeBomb(ArrayList<Entity> entities) {
-        // TODO: implement
+        if (this.playerInventory.getBombs() > 0 && !this.bombPlaced) {
+            this.playerInventory.addBombs(-1);
+
+            Vector2D centerPosition = this.getEntityCenter();
+
+            entities.add(new PlacedBomb(centerPosition.getX(), centerPosition.getY()));
+
+            this.bombPlaced = true;
+            CompletableFuture.delayedExecutor(2, TimeUnit.SECONDS).execute(() -> {
+                this.bombPlaced = false;
+            });
+        }
     }
 }

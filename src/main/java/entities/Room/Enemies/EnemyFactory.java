@@ -1,7 +1,7 @@
 package entities.Room.Enemies;
 
+import application.GameApplication;
 import entities.Entity;
-import entities.Room.Enemies.Duke.DukeOfFlies;
 import entities.Room.Textures.ChargerTexture;
 import entities.Room.Textures.DukeTexture;
 import entities.Room.Textures.FlyTexture;
@@ -14,13 +14,16 @@ public class EnemyFactory implements RoomPartsFactory {
     private ChargerTexture chargerTexture = new ChargerTexture();
 
     public Entity createEntity(String entity, double x, double y) {
+        double startX = GameApplication.GRID_BUFFER + x * GameApplication.GRID_WIDTH;
+        double startY = GameApplication.GRID_BUFFER + y * GameApplication.GRID_WIDTH;
+
         switch (entity) {
             case "fly":
-                return this.createFly(x, y);
+                return this.createFly(startX, startY);
             case "duke":
-                return this.createDuke(x, y);
+                return this.createDuke(startX, startY);
             case "charger":
-                return this.createCharger(x, y);
+                return this.createCharger(startX, startY);
         }
 
         return null;
