@@ -1,13 +1,12 @@
 package entities.Room.Obstacles.Pedestal;
 
-import GUI.GUI;
 import application.Vector2D;
 import entities.Player.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class CatONineTails extends PedestalItem implements PedestalItemInterface {
-    private Image image = new Image(getClass().getResource("/item/cat-o-nine-tails.png").toExternalForm());
+    private final Image image = new Image(getClass().getResource("/item/cat-o-nine-tails.png").toExternalForm());
     private boolean pickedUp = false;
     public void render(Vector2D center, GraphicsContext gc) {
         gc.drawImage(this.image, 4, 39, 30, 30, center.getX() - 32, center.getY() - 74, 64, 64);

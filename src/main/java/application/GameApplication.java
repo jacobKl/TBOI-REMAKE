@@ -13,7 +13,6 @@ public class GameApplication extends Application {
     public static final Integer WINDOW_HEIGHT = 764;
     public static final double GRID_BUFFER = 130;
     public static final double GRID_WIDTH = 72;
-
     public static void main(String[] args) {
         launch(args);
     }

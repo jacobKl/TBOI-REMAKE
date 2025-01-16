@@ -10,6 +10,8 @@ import entities.Room.Room;
 import entities.Room.Textures.TearShadowTexture;
 import entities.Room.Textures.TearTexture;
 import entities.SpritesheetPart;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
@@ -106,6 +108,11 @@ public class Player extends Entity {
         }
 
         this.playerInventory.renderItems(gc, this);
+    }
+
+    @Override
+    public Bounds getBounds() {
+        return new BoundingBox(this.getX() + 10, this.getY() + 10, this.width - 20, this.height - 20);
     }
 
     public PlayerAttributes getPlayerAttributes() {

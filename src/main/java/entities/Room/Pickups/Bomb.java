@@ -1,6 +1,5 @@
 package entities.Room.Pickups;
 
-import application.AudioManager;
 import entities.Entity;
 import entities.PickupEntity;
 import entities.Player.Player;
@@ -8,7 +7,7 @@ import entities.Room.Textures.BombTexture;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Bomb extends Entity implements PickupEntity {
-    private BombTexture bombTexture;
+    private final BombTexture bombTexture;
     public Bomb(double x, double y, BombTexture texture) {
         super(x, y, 40, 40);
         this.bombTexture = texture;

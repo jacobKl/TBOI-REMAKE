@@ -15,6 +15,9 @@ public class AudioManager {
     private final Map<String, Media> soundMap = new HashMap<>();
 
     private AudioManager() {
+        this.loadSound("bomb.mp3");
+        this.loadSound("splatter.mp3");
+        this.loadSound("attack.wav");
     }
 
     public static AudioManager getInstance() {
@@ -26,6 +29,8 @@ public class AudioManager {
 
     public void playSound(String filename) {
         Media sound = this.soundMap.get(filename);
+
+        System.out.println(this.soundMap);
 
         if (sound == null) {
             this.loadSoundAsync(filename);

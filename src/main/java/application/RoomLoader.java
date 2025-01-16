@@ -13,6 +13,7 @@ import entities.RoomPartsFactory;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RoomLoader {
     private JsonArray roomsArray;
@@ -33,24 +34,25 @@ public class RoomLoader {
         ArrayList<Entity> entities = new ArrayList<>();
         JsonObject roomObject = (JsonObject) this.roomsArray.get(index);
 
-        this.mapObjectsToFactory(entities, new ObstacleFactory(), (JsonArray) roomObject.get("entities"));
-
+        this.mapObjectsToFactory(entities, new ObstacleFactory(), (JsonArray) roomObject.get("entities"), defeatedRooms, index);
 
         if (!defeatedRooms.contains(index)) {
-            this.mapObjectsToFactory(entities, new PickupFactory(), (JsonArray) roomObject.get("pickups"));
-            this.mapObjectsToFactory(entities, new EnemyFactory(), (JsonArray) roomObject.get("enemies"));
+            this.mapObjectsToFactory(entities, new PickupFactory(), (JsonArray) roomObject.get("pickups"), defeatedRooms, index);
+            this.mapObjectsToFactory(entities, new EnemyFactory(), (JsonArray) roomObject.get("enemies"), defeatedRooms, index);
         }
 
         return entities;
     }
 
-    private void mapObjectsToFactory(ArrayList<Entity> entities, RoomPartsFactory factory, JsonArray jsonEntities) {
+    private void mapObjectsToFactory(ArrayList<Entity> entities, RoomPartsFactory factory, JsonArray jsonEntities, ArrayList<Integer> defeatedRooms, Integer index) {
         for (Object entity : jsonEntities) {
             JsonObject single = (JsonObject) entity;
 
             String type = (String) single.get("type");
             Number xValue = (Number) single.get("x");
             Number yValue = (Number) single.get("y");
+
+            if (Objects.equals(type, "pedestal") && defeatedRooms.contains(index)) continue;
 
             Double x = xValue != null ? xValue.doubleValue() : null;
             Double y = yValue != null ? yValue.doubleValue() : null;

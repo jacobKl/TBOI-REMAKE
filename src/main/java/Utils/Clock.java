@@ -2,7 +2,7 @@ package Utils;
 
 public class Clock {
     private double sum;
-    private double threshold;
+    private final double threshold;
 
     public Clock(double threshold) {
         this.sum = 0;

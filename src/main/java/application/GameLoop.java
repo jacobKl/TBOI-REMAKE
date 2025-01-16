@@ -42,6 +42,8 @@ public class GameLoop extends AnimationTimer {
         this.currentRoom = new Room(this.entities);
         this.gui = new GUI();
 
+        AudioManager.getInstance();
+
         this.init();
     }
 

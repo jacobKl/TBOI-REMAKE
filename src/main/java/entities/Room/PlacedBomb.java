@@ -24,6 +24,8 @@ public class PlacedBomb extends Entity {
 
     public void update(double deltaTime, Player player, ArrayList<Entity> entities) {
         if(this.bombClock.update(deltaTime)) {
+            this.audioManager.playSound("bomb.mp3");
+
             entities.remove(this);
             this.removeEntitiesWithinRadius(entities, 150);
         }
@@ -46,7 +48,11 @@ public class PlacedBomb extends Entity {
                 if (entity instanceof PickupEntity) {
 
                 } else if (entity instanceof Enemy) {
-                    ((Enemy) entity).receiveDamage(50);
+                    boolean killed = ((Enemy) entity).receiveDamage(50);
+
+                    if (killed) {
+                        entities.remove(entity);
+                    }
                 } else {
                     iterator.remove();
                 }
